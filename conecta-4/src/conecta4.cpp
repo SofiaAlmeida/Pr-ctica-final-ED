@@ -58,7 +58,7 @@ void imprimeTablero(Tablero & t, Mando & m){
  * @return : Identificador (int) del jugador que gana la partida (1 o 2).
  */
 int jugar_partida() {
-
+               //(filas, columnas, metrica, turno)
     Tablero tablero(5, 7);      //Tablero 5x7
     Mando mando(tablero);       //Mando para controlar E/S de tablero
     char c = 1;
@@ -69,13 +69,22 @@ int jugar_partida() {
         mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c 
         imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
         quienGana = tablero.quienGana();    // hay ganador?
-        if(quienGana==0) c = getch();       // Capturamos la tecla pulsada.    
+        if(quienGana==0) //
+	  //if (turno == jugador automático) //para lo del turno podríamos decir que el jugador automático es siempre el 1 y el otro siempre el 2 y que eso sea lo que reciba como argumento al llamar al programa en <turno>, simplemente al crear el tablero tendría que empezar el jugador que diga turno
+	  //c = jugadorautomatico.columna()
+	  //else
+	  c = getch();       // Capturamos la tecla pulsada.    
     }
 
     return tablero.quienGana();
 }
 
+//metrica_ultima()
+//verificar únicamente si en alguna fila gana o como segundo caso evita perder, si no insertar de forma aleatoria
+
 int main(int argc, char *argv[]){
+  //Comprobar argumentos, cambiar parámetros de funciones
+  //prompt %> conecta4 <filas_tablero> <cols_tablero> <metrica> <turno>
     int ganador = jugar_partida();
     cout << "Ha ganado el jugador " << ganador << endl;
 }  
