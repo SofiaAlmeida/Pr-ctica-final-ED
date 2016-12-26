@@ -73,9 +73,18 @@ public:
      *      El estado inicial del tablero es todo 0, es decir, todo el tablero
      *      está libre. El turno inicial es el del jugador 1.
      * @param filas : Número de filas que tendrá el tablero.
-     * @param columnas : Nümero de columnas del tablero.
+     * @param columnas : Número de columnas del tablero.
      */
     Tablero(const int filas, const int columnas);
+    /**
+     * @brief Constructor. Crea un tablero introduciendo el tamaño del mismo.
+     *      El estado inicial del tablero es todo 0, es decir, todo el tablero
+     *      está libre. El turno inicial es el del jugador 1.
+     * @param filas : Número de filas que tendrá el tablero.
+     * @param columnas : Número de columnas del tablero.
+     * @param turn : Turno del jugador que comenzará el juego
+     */
+    Tablero(const int filas, const int columnas, int turn);
     /**
      * @brief Constructor de copia. Crea un tablero a partir de otro dado.
      * @param t : Tablero origen que se va a copiar.

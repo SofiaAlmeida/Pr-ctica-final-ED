@@ -23,6 +23,13 @@ Tablero::Tablero(const int filas, const int columnas) :
     reserve();
 }
 
+Tablero::Tablero(const int filas, const int columnas, int turn) :
+    filas(filas), columnas(columnas) {
+    turno = turn;
+    reserve();
+}
+
+
 Tablero::~Tablero() {}
 
 Tablero::Tablero(const Tablero& t) :

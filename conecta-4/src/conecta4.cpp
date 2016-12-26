@@ -1,4 +1,4 @@
-
+ce
 #include <iostream>
 #include <vector>
 #include <ctime>
@@ -52,14 +52,20 @@ void imprimeTablero(Tablero & t, Mando & m){
     cout << m.GetMando() << endl;
 }
 
+
+
 /******************************************************************************/
 /**
  * @brief Implementa el desarrollo de una partida de Conecta 4 sobre un tablero 5x7, pidiendo por teclado los movimientos de ambos jugadores según turno.
+ * @param filas Número de filas del tablero
+ * @param columnas Número de columnas del tablero
+ * @param metrica Métrica usada por el jugador automático
+ * @param turno Turno del jugador que iniciará la partida
  * @return : Identificador (int) del jugador que gana la partida (1 o 2).
  */
-int jugar_partida() {
+int jugar_partida(int filas, int columnas, int metrica, int turno) {
                //(filas, columnas, metrica, turno)
-    Tablero tablero(5, 7);      //Tablero 5x7
+  Tablero tablero(filas, columnas, turno);      //Tablero filasxcolumnas
     Mando mando(tablero);       //Mando para controlar E/S de tablero
     char c = 1;
     int quienGana = tablero.quienGana();
@@ -83,9 +89,22 @@ int jugar_partida() {
 //verificar únicamente si en alguna fila gana o como segundo caso evita perder, si no insertar de forma aleatoria
 
 int main(int argc, char *argv[]){
+
+  int ganador;
+  
+  if(argc == 1)
   //Comprobar argumentos, cambiar parámetros de funciones
+    ganador = jugar_partida(5,7,1,1);
+
+  else if(argc == 5)
+    ganador = jugar_partida(fil, cols, metrica, turno);
+
+  else {
+    cout << "Número de argumentos incorrecto, por favor introduzca un número adecuado" << endl;
+    return 1;
+  }
+
   //prompt %> conecta4 <filas_tablero> <cols_tablero> <metrica> <turno>
-    int ganador = jugar_partida();
     cout << "Ha ganado el jugador " << ganador << endl;
 }  
   
