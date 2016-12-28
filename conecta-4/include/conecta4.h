@@ -3,6 +3,7 @@
 
 #include "tablero.h"
 #include "ArbolGeneral.h"
+#include <cstdlib>		//--rand()
 
 
 /******************************************************************************/
@@ -29,6 +30,8 @@ class Conecta4 {
   //..intentar colocar ficha
   //..mirar actualizarJuego de mando.cpp
 
+  //--turnoAutomatico()
+  //--cuando sea el turno del jugador automático operará según la métrica insertada
   //..metrica1
   //..si empieza, poner ficha en el centro
   //.. Cortar las jugadas rivales cuando ponga 2 o 3 fichas en línea
