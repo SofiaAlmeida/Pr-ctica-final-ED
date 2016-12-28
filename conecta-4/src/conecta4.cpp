@@ -33,7 +33,7 @@ void Conecta4::metrica1() {
 }
 
  
-void Conecta4::metrica_ultima(Tablero tablero) {
+void Conecta4::metrica_ultima(Tablero &tablero) {
   int columna;
 
   do {

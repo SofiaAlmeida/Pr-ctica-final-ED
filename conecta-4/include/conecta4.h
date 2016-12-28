@@ -17,6 +17,7 @@ class Conecta4 {
  private:
   Tablero tablero;
   int metrica;
+  const int MAX_DEPTH; //--Número de niveles a comprobar
   
  public:
   Conecta4(filas, columnas, metrica, turno);
