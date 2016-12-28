@@ -60,35 +60,39 @@ void imprimeTablero(Tablero & t, Mando & m){
  * @param turno Turno del jugador que iniciará la partida
  * @return: Identificador (int) del jugador que gana la partida (1 o 2).
  */
-int jugar_partida(int filas = 5, int columnas = 7, int metrica = 1, int turno = 1) {
+int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 1) {
   //(filas, columnas, metrica, turno)
+  //..lo de los comentarios con //.. es para luego buscarlos y borrarlos
+  //.. ¿y si jugamos la partida dentro de conecta4?, así podríamos almacenar el tablero dentro... ¿se podría tener un único tablero que viera jugar_partida y conecta4?
   Tablero tablero(filas, columnas, turno);      //Tablero filasxcolumnas 
   Mando mando(tablero);       //Mando para controlar E/S de tablero
   char c = 1;
+  //..int pos;
   int quienGana = tablero.quienGana();
   //mientras no haya ganador y no se pulse tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
     system("clear");
-    mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c 
-    imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
+    //..if(tablero.GetTurno() == 1)
+//..el jugador automático es siempre el 2 y el humano siempre el 1. Eso es lo que recibe como argumento al llamar al programa en <turno>
+      //.. conecta4.actualizarJuego(columna); 
+      //.. cout << tablero
     quienGana = tablero.quienGana();    // ¿hay ganador?
-    //De alguna forma habría que inicializar el jugador automático según la métrica ¿pasándoselo como parámetro al pedirle la columna?
-    //se me ocurre tener un método columna que sea simplemente unos if-else comprobando el nº de métrica y llamando al método adecuado, que devolvería la posicion a insertar
     if(quienGana == 0)
-      //if (turno == jugador automático) //para lo del turno podríamos decir que el jugador automático es siempre el 1 y el otro siempre el 2 y que eso sea lo que reciba como argumento al llamar al programa en <turno>
-      //c = jugadorautomatico.columna()
-      //else
-      c = getch();       // Capturamos la tecla pulsada.    
+       c = getch();       // Capturamos la tecla pulsada.
+    //..else {
+       mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c
+    imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
+      //.. quienGana = tablero.quienGana()
+      //.. if(quienGana == 0)
+        //.. pos = jugadorautomatico.columna(metrica)
+    //.. }
+
+    //.. Esto está un poco al revés, porque si es el turno del jugador 1 va a actualizar lo anterior del jugador 2, actualiza la jugada anterior de este jugador. Cuando juega el jugador 1, lo que queremos actualizar es lo del jugador 2 que fue el que jugó antes
+         
   }
 
   return tablero.quienGana();
 }
-
-//metrica_ultima()
-//aleatoria
-
-//metrica_penultima()
-//verificar únicamente si en alguna fila gana o como segundo caso evita perder, si no insertar de forma aleatoria
 
 int main(int argc, char *argv[]){
 
