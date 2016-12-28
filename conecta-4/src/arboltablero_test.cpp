@@ -27,11 +27,11 @@ int main(int argc, char *argv[]){
 
     // Éste es el árbol que queremos montar: 
     // 				tablero
-    //					|
+    //			          |
     //			|---------------|
-    //		tablero1		tablero2
-    //							|
-    //						tablero3
+    //	             tablero1       tablero2
+    //		       	                |
+    //			       	    tablero3
 
 
     //Árbol 'partida', con 'tablero' como nodo raíz
