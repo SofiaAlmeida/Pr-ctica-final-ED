@@ -15,7 +15,7 @@
  */
 class Conecta4 {
  private:
-  Tablero tablero;
+  ArbolGeneral<Tablero> arbol_posibilidades;
   int metrica;
   const int MAX_DEPTH; //--Número de niveles a comprobar
   
