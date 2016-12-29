@@ -2,44 +2,48 @@
 
 
 Conecta4::actualizarJuego(char c, Tablero Tablero) {
-  //TODO
+  //--TODO
 }
 
+//.. revisar tipo de esta función según cómo la vayamos a utilizar
 void Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del jugador automático llamamos a esta función para que elija dónde se ha de insertar la ficha, llamamos a colocar ficha dentro de cada métrica
-  int columna;
  
-  switch (metrica){
+  switch (metrica) {
 
   case 1:
-    columna = metrica1(tablero);
+    metrica1(tablero);
     break;
   case 2:
-    columna = metrica2(tablero);
+    metrica2(tablero);
     break;
   case 3:
-    columna = metrica_penultima(tablero);
+    metrica_penultima(tablero);
     break;
   case 4:
-    columna = metrica_ultima(tablero);
+    metrica_ultima(tablero);
     break;
   default:
     cout << "Error en selección de métrica para inserción." << endl;
-    //-- ¿Ponemos exit(-1); para que se detenga el programa?
+    exit(-1); 
   }
 } 
   
-void Conecta4::metrica1() {
+int Conecta4::metrica1() {
   //TODO
 }
 
  
-void Conecta4::metrica_ultima(Tablero &tablero) {
+bool Conecta4::metrica_ultima(Tablero &tablero) {
   int columna;
+  bool colocada = false;
 
+  //..¿if(tablero.Lleno())? return colocada
   do {
     columna  = rand() % tablero.GetColumnas();
+    colocada = tablero.colocarFicha(columna);
+  } while (!colocada);
 
-  } while (!colocarFicha);
-
+     tablero.cambiarTurno();
+  return colocada;
 }
       

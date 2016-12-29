@@ -3,7 +3,7 @@
 
 #include "tablero.h"
 #include "ArbolGeneral.h"
-#include <cstdlib>		//--rand()
+#include <cstdlib>		//rand()
 
 
 /******************************************************************************/
@@ -17,22 +17,29 @@ class Conecta4 {
  private:
   ArbolGeneral<Tablero> arbol_posibilidades;
   int metrica;
-  const int MAX_DEPTH; //--Número de niveles a comprobar
-  
+  const int MAX_DEPTH = 5; //Número de niveles a comprobar
+  //..puse cualquier valor para poder compilar, ya pensaremos cual queremos poner
  public:
-  Conecta4(filas, columnas, metrica, turno);
+  /**
+   * @brief Constructor
+   * @param met metrica a utilizar durante la partida
+   */
+ Conecta4(int met) : metrica(met) {}
 
-  //..int columna();
-  //..if metrica == 1
-  //..metrica1();
-  //.. ...
-
+  
   //.. actualizarJuego(c, tablero)
   //..intentar colocar ficha
   //..mirar actualizarJuego de mando.cpp
 
-  //--turnoAutomatico()
-  //--cuando sea el turno del jugador automático operará según la métrica insertada
+
+  /**
+   * @brief Cuando sea el turno del jugador automático operará según la métrica insertada
+   * @param tablero en el que insertará una ficha
+   * @return Void
+   */
+  void turnoAutomatico(Tablero &tablero);
+  
+  //--
   //..metrica1
   //..si empieza, poner ficha en el centro
   //.. Cortar las jugadas rivales cuando ponga 2 o 3 fichas en línea
@@ -41,13 +48,15 @@ class Conecta4 {
   //..metrica2
   //..insertar piezas de manera colindante
 
-  
-//..metrica_ultima()
-//..aleatoria
-
 //..metrica_penultima()
 //..verificar únicamente si en alguna fila gana o como segundo caso evita perder, si no insertar de forma aleatoria
 
+  /**
+   * @brief inserta en una posición aleatoria y cambia el turno
+   * @param tablero en el que insertará
+   * @return true si ha podido insertar, false en caso contrario
+   */
+  bool metrica_ultima(Tablero &tablero);
 };
 
 #endif
