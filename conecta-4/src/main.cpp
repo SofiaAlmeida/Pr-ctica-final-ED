@@ -13,6 +13,9 @@
 
 using namespace std;
 
+const int t_humano = 1;
+const int t_automatico = 2;
+
 /******************************************************************************/
 /**
  * @brief Captura el caracter pulsado por teclado (sin necesidad de pulsar, a continuación, Enter).
@@ -44,52 +47,77 @@ char getch() {
  * @param t : Tablero que se va a imprimir.
  * @param m : Mando indicando la posición del jugador.
  */
-void imprimeTablero(Tablero & t, Mando & m){
+void imprimeTablero(Tablero & t, Mando & m) {
     cout << m.GetJugador() << endl;
     cout << t ;
     cout << m.GetBase() << endl;
     cout << m.GetMando() << endl;
 }
 
-/******************************************************************************/
+//..¿esto funciona?
+void imprimeTablero(Tablero &t) {
+    cout << m.GetJugador() << endl;
+    cout << t ;
+}
+
+//..Dejo por aquí la función original jugar_partida, jugar_partida actual está destinado a jugar con un jugador automático
 /**
- * @brief Implementa el desarrollo de una partida de Conecta 4 sobre un tablero filasxcolumnas, pidiendo por teclado los movimientos de ambos jugadores según turno.
- * @param filas Número de filas del tablero
- * @param columnas Número de columnas del tablero
- * @param metrica Métrica usada por el jugador automático
- * @param turno Turno del jugador que iniciará la partida
- * @return: Identificador (int) del jugador que gana la partida (1 o 2).
+ * @brief Implementa el desarrollo de una partida de Conecta 4 sobre un tablero 5x7, pidiendo por teclado los movimientos de ambos jugadores según turno.
+ * @return : Identificador (int) del jugador que gana la partida (1 o 2).
  */
-int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 1) {
-  //(filas, columnas, metrica, turno)
-  //..lo de los comentarios con //.. es para luego buscarlos y borrarlos
-  //.. ¿y si jugamos la partida dentro de conecta4?, así podríamos almacenar el tablero dentro... ¿se podría tener un único tablero que viera jugar_partida y conecta4?
-  Tablero tablero(filas, columnas, turno);      //Tablero filasxcolumnas 
+int jugar_partida_humanos() {
+
+  Tablero tablero(5, 7);      //Tablero 5x7
   Mando mando(tablero);       //Mando para controlar E/S de tablero
   char c = 1;
-  //..int pos;
   int quienGana = tablero.quienGana();
   //mientras no haya ganador y no se pulse tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
     system("clear");
     mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c 
     imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
-    //..if(tablero.GetTurno() == 1)
-//..el jugador automático es siempre el 2 y el humano siempre el 1. Eso es lo que recibe como argumento al llamar al programa en <turno>
-      //.. conecta4.actualizarJuego(columna); 
-      //.. cout << tablero
-    quienGana = tablero.quienGana();    // ¿hay ganador?
-    if(quienGana == 0)
-       c = getch();       // Capturamos la tecla pulsada.
-    //..else {
-    
-      //.. quienGana = tablero.quienGana()
-      //.. if(quienGana == 0)
-        //.. pos = jugadorautomatico.columna(metrica)
-    //.. }
+    quienGana = tablero.quienGana();    // hay ganador?
+    if(quienGana==0) c = getch();       // Capturamos la tecla pulsada.    
+  }
 
-    //.. Esto está un poco al revés, porque si es el turno del jugador 1 va a actualizar lo anterior del jugador 2, actualiza la jugada anterior de este jugador. Cuando juega el jugador 1, lo que queremos actualizar es lo del jugador 2 que fue el que jugó antes
-         
+  return tablero.quienGana();
+}
+
+/******************************************************************************/
+/**
+ * @brief Implementa el desarrollo de una partida de Conecta 4 sobre un tablero filasxcolumnas, pidiendo por teclado los movimientos de un jugador y el otro automático
+ * @param filas Número de filas del tablero
+ * @param columnas Número de columnas del tablero
+ * @param metrica Métrica usada por el jugador automático
+ * @param turno Turno del jugador que iniciará la partida
+ * @return: Identificador (int) del jugador que gana la partida (1 o 2)
+ * 1: jugador humano
+ * 2: jugador automático
+ */
+//..PROBAR
+int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 1) {
+  //(filas, columnas, metrica, turno)
+  
+  Tablero tablero(filas, columnas, turno);      //Tablero filasxcolumnas 
+  int quienGana = tablero.quienGana();
+  char c = 1;
+  Conecta4 j_auto(metrica);
+
+  //Mientras no haya ganador y no se pulse la tecla de terminación
+  while(c != Mando::KB_ESCAPE && quienGana = 0) {
+    if(turno == t_humano) {
+      imprimeTablero(tablero, mando); //Muestra tablero y mando en pantalla
+      c = getch(); //Capturamos la tecla pulsada
+      system("clear");
+      mando.actualizarJuego(c, tablero);
+    }
+    else {
+      imprimeTablero(tablero);
+      //.. si vemos que no tarda nada sleep(1);
+      j_auto.turnoAutomarico(tablero);
+      imprimeTablero(tablero);
+    }
+    quienGana = tablero.quienGana();
   }
 
   return tablero.quienGana();
