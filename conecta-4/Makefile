@@ -10,7 +10,7 @@ CPPFLAGS = -Wall -g -std=c++11 -I$(INC) -c
 
 
 
-all: $(BIN)/conecta4 $(BIN)/arboltablero_test
+all: $(BIN)/main $(BIN)/arboltablero_test
 # ************ Generación de documentación ******************
 documentacion:
 	doxygen doc/doxys/Doxyfile
@@ -20,8 +20,8 @@ documentacion:
 $(BIN)/arboltablero_test: $(OBJ)/arboltablero_test.o $(LIB)/libtablero.a 
 	$(CXX) -o $(BIN)/arboltablero_test $(OBJ)/arboltablero_test.o -I$(INC) -L$(LIB) -ltablero
 
-$(BIN)/conecta4: $(OBJ)/conecta4.o $(LIB)/libtablero.a $(LIB)/libmando.a
-	$(CXX) -o $(BIN)/conecta4 $(OBJ)/conecta4.o -I$(INC) -L$(LIB) -ltablero -lmando
+$(BIN)/main: $(OBJ)/conecta4.o $(LIB)/libtablero.a $(LIB)/libmando.a
+	$(CXX) -o $(BIN)/main $(OBJ)/conecta4.o -I$(INC) -L$(LIB) -ltablero -lmando
 
 $(OBJ)/conecta4.o: $(SRC)/conecta4.cpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/conecta4.o $(SRC)/conecta4.cpp -I$(INC)
