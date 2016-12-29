@@ -28,7 +28,15 @@ void Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del ju
   }
 } 
   
-int Conecta4::metrica1() {
+bool Conecta4::metrica1() {
+  //TODO
+}
+
+bool Conecta4::metrica2() {
+  //TODO
+}
+
+bool Conecta4::metrica_penultima() {
   //TODO
 }
 
@@ -37,7 +45,7 @@ bool Conecta4::metrica_ultima(Tablero &tablero) {
   int columna;
   bool colocada = false;
 
-  //..¿if(tablero.Lleno())? return colocada
+  //..¿if(tablero.Lleno())? return colocada //-- en ese caso directamente acabaría la partida, porque si no intentará insertar de nuevo
   do {
     columna  = rand() % tablero.GetColumnas();
     colocada = tablero.colocarFicha(columna);

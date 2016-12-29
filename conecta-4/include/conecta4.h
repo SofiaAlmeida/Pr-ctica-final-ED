@@ -39,18 +39,28 @@ class Conecta4 {
    */
   void turnoAutomatico(Tablero &tablero);
   
-  //--
-  //..metrica1
-  //..si empieza, poner ficha en el centro
-  //.. Cortar las jugadas rivales cuando ponga 2 o 3 fichas en línea
-  //..intentar conseguir 4 en línea
+  /**
+   * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales
+   * @param tablero Tablero dónde insertará
+   * @return true si ha insertado correctamente, false en caso contrario
+   **/
+  bool metrica1(Tablero &tablero);
 
-  //..metrica2
-  //..insertar piezas de manera colindante
+  /**
+   * @brief Segunda métrica, intenta alinear el mayor número de fichas posibles
+   * @param tablero Tablero donde se insertará
+   * @return true si ha insertado correctamente, false en caso contrario
+   **/
+  bool metrica2(Tablero &tablero);
 
-//..metrica_penultima()
-//..verificar únicamente si en alguna fila gana o como segundo caso evita perder, si no insertar de forma aleatoria
-
+  
+  
+  /**
+   * @brief Métrica que sólo verifica el siguiente nivel y corta la jugada rival en caso de posible derrota. Si no se decanta insertará aleatoriamente
+   * @param tablero Tablero
+   **/
+  bool meetrica_penultima(Tablero &tablero);
+  
   /**
    * @brief inserta en una posición aleatoria y cambia el turno
    * @param tablero en el que insertará
