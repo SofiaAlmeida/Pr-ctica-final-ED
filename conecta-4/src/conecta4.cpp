@@ -1,42 +1,40 @@
 #include "conecta4.h"
 
-
-Conecta4::actualizarJuego(char c, Tablero Tablero) {
-  //--TODO
-}
-
-//.. revisar tipo de esta función según cómo la vayamos a utilizar
-void Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del jugador automático llamamos a esta función para que elija dónde se ha de insertar la ficha, llamamos a colocar ficha dentro de cada métrica
- 
+bool Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del jugador automático llamamos a esta función para que elija dónde se ha de insertar la ficha, llamamos a colocar ficha dentro de cada métrica
+  bool insertada = false;
+  
   switch (metrica) {
 
   case 1:
-    metrica1(tablero);
+    insertada = metrica1(tablero);
     break;
   case 2:
-    metrica2(tablero);
+    insertada = metrica2(tablero);
     break;
   case 3:
-    metrica_penultima(tablero);
+    insertada = metrica_penultima(tablero);
     break;
   case 4:
-    metrica_ultima(tablero);
+    insertada = metrica_ultima(tablero);
     break;
   default:
     cout << "Error en selección de métrica para inserción." << endl;
-    exit(-1); 
+    exit(-1);
+    //..return insertada
   }
+
+  return insertada;
 } 
   
-bool Conecta4::metrica1() {
+bool Conecta4::metrica1(Tablero &tablero) {
   //TODO
 }
 
-bool Conecta4::metrica2() {
+bool Conecta4::metrica2(Tablero &tablero) {
   //TODO
 }
 
-bool Conecta4::metrica_penultima() {
+bool Conecta4::metrica_penultima(Tablero &tablero) {
   //TODO
 }
 

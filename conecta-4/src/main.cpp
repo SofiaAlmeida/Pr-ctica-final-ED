@@ -6,10 +6,12 @@
 #include <unistd.h>
 #include <termio.h>     // Linux/Windows users
 //#include <termios.h>    // Mac OSX users
+#include <string>
 
 #include "ArbolGeneral.h"
 #include "tablero.h"
 #include "mando.h"
+#include "conecta4.h"
 
 using namespace std;
 
@@ -47,7 +49,7 @@ char getch() {
  * @param t : Tablero que se va a imprimir.
  * @param m : Mando indicando la posición del jugador.
  */
-void imprimeTablero(Tablero & t, Mando & m) {
+void imprimeTablero(Tablero & t, Mando &m) {
     cout << m.GetJugador() << endl;
     cout << t ;
     cout << m.GetBase() << endl;
@@ -56,7 +58,7 @@ void imprimeTablero(Tablero & t, Mando & m) {
 
 //..¿esto funciona?
 void imprimeTablero(Tablero &t) {
-    cout << m.GetJugador() << endl;
+    cout << t.GetTurno() << endl;
     cout << t ;
 }
 
@@ -77,7 +79,8 @@ int jugar_partida_humanos() {
     mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c 
     imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
     quienGana = tablero.quienGana();    // hay ganador?
-    if(quienGana==0) c = getch();       // Capturamos la tecla pulsada.    
+    if(quienGana == 0)
+      c = getch();       // Capturamos la tecla pulsada.    
   }
 
   return tablero.quienGana();
@@ -102,9 +105,10 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
   int quienGana = tablero.quienGana();
   char c = 1;
   Conecta4 j_auto(metrica);
+  Mando mando(tablero);
 
   //Mientras no haya ganador y no se pulse la tecla de terminación
-  while(c != Mando::KB_ESCAPE && quienGana = 0) {
+  while(c != Mando::KB_ESCAPE && quienGana == 0) {
     if(turno == t_humano) {
       imprimeTablero(tablero, mando); //Muestra tablero y mando en pantalla
       c = getch(); //Capturamos la tecla pulsada
@@ -114,7 +118,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
     else {
       imprimeTablero(tablero);
       //.. si vemos que no tarda nada sleep(1);
-      j_auto.turnoAutomarico(tablero);
+      j_auto.turnoAutomatico(tablero);
       imprimeTablero(tablero);
     }
     quienGana = tablero.quienGana();
@@ -123,7 +127,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
   return tablero.quienGana();
 }
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
 
   int ganador;
   

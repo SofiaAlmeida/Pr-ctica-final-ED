@@ -6,7 +6,7 @@ BIN = bin
 CXX = g++
 AR = ar rvs		
 AR_MACOSX = libtool -static -o  
-CPPFLAGS = -Wall -g -std=c++11 -I$(INC) -c
+CPPFLAGS = -Wall -pedantic -g -std=c++11 -I$(INC) -c
 
 
 

@@ -26,18 +26,13 @@ class Conecta4 {
    */
  Conecta4(int met) : metrica(met) {}
 
-  
-  //.. actualizarJuego(c, tablero)
-  //..intentar colocar ficha
-  //..mirar actualizarJuego de mando.cpp
-
-
   /**
-   * @brief Cuando sea el turno del jugador automático operará según la métrica insertada
+   * @brief Cuando sea el turno del jugador automático operará según la métrica insertada. 
+   * En caso de ser posible insertar una ficha en la posición indicada por la métrica, modifica el tablero
    * @param tablero en el que insertará una ficha
-   * @return Void
+   * @return true si se pudo insertar
    */
-  void turnoAutomatico(Tablero &tablero);
+  bool turnoAutomatico(Tablero &tablero);
   
   /**
    * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales
@@ -52,14 +47,12 @@ class Conecta4 {
    * @return true si ha insertado correctamente, false en caso contrario
    **/
   bool metrica2(Tablero &tablero);
-
-  
   
   /**
    * @brief Métrica que sólo verifica el siguiente nivel y corta la jugada rival en caso de posible derrota. Si no se decanta insertará aleatoriamente
    * @param tablero Tablero
    **/
-  bool meetrica_penultima(Tablero &tablero);
+  bool metrica_penultima(Tablero &tablero);
   
   /**
    * @brief inserta en una posición aleatoria y cambia el turno
