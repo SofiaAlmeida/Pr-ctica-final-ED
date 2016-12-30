@@ -111,7 +111,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
     }
     else {
       cout << "Jugador automático" << endl;
-      cout << tablero; //Imprimimos el tablero
+      imprimeTablero(tablero,mando);
       sleep(1);
       j_auto.turnoAutomatico(tablero);
     }
@@ -124,18 +124,24 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
 int main(int argc, char *argv[]) {
 
   int ganador;
-  
-  if(argc == 1)
+
+  switch (argc) {
+  case 1: 
     ganador = jugar_partida();
-  else if(argc == 2)
+    break;
+  case 2:
     ganador = jugar_partida(stoi(argv[1]));
-  else if(argc == 3)
+    break;
+  case 3:
     ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]));
-  else if(argc == 4)
+    break;
+  case 4:
     ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]));
-  else if(argc == 5)
+    break;
+  case 5:
     ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]), stoi(argv[4]));
-  else {
+    break;
+  default:
     cout << "Número de argumentos incorrecto, por favor introduzca un número adecuado" << endl;
     cout << "prompt %> conecta4 <filas_tablero> <cols_tablero> <metrica> <turno>" << endl;
     return 1;
