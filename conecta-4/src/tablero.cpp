@@ -12,19 +12,20 @@ void Tablero::reserve() {
   }
 }
 
-Tablero::Tablero() : filas(5), columnas(7) {
+Tablero::Tablero() : filas(5), columnas(7), MAX_PIEZAS(5*7), colocadas(0) {
   turno = 1;
   reserve();
+  
 }
 
 Tablero::Tablero(const int filas, const int columnas) :
-  filas(filas), columnas(columnas) {
+  filas(filas), columnas(columnas), MAX_PIEZAS(filas*columnas), colocadas(0) {
   turno = 1;
   reserve();
 }
 
 Tablero::Tablero(const int filas, const int columnas, int turn) :
-  filas(filas), columnas(columnas) {
+  filas(filas), columnas(columnas), MAX_PIEZAS(filas*columnas), colocadas(0) {
   turno = turn;
   reserve();
 }
@@ -33,7 +34,7 @@ Tablero::Tablero(const int filas, const int columnas, int turn) :
 Tablero::~Tablero() {}
 
 Tablero::Tablero(const Tablero& t) :
-  tablero(t.tablero), filas(t.filas), columnas(t.columnas), turno(t.turno) {
+  tablero(t.tablero), filas(t.filas), MAX_PIEZAS(t.filas*t.columnas), columnas(t.columnas), turno(t.turno),colocadas(t.colocadas)  {
 }
 
 int Tablero::hayHueco(int pos){
@@ -60,6 +61,13 @@ int Tablero::hayHueco(int pos){
     return -1;
 }
 
+bool Tablero::hayEmpate() {
+  if(colocadas == MAX_PIEZAS)
+    return true;
+  else
+    return false;
+}
+
 bool Tablero::colocarFicha(int pos) {
   int fila;
 
@@ -67,6 +75,7 @@ bool Tablero::colocarFicha(int pos) {
   fila = hayHueco(pos);
   if(fila != -1){
     this->tablero[fila][pos] = turno;
+    colocadas++;
     return true;
   }
   return false;

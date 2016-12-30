@@ -57,6 +57,8 @@ private:
     const int filas;              ///< Número de filas que tiene el tablero.
     const int columnas;           ///< Número de columnas que tiene el tablero.
     int turno;                    ///< Indica a qué jugador le toca poner ficha. 1 para el jugador 1, 2 para el jugador 2.
+    const int MAX_PIEZAS;
+    int colocadas;		// Número de piezas insertadas en el momento
 
     void reserve();               ///< Crea el tablero de tamaño filas/columnas
 
@@ -100,6 +102,11 @@ public:
      */
     int hayHueco(int pos);
     /**
+     * @brief Comprueba si se ha producido un empate
+     * @return True si hay empate
+     **/
+    bool hayEmpate();
+    /**
      * @brief Coloca una ficha en la columna especificada del jugador correspondiente.
      *          Si le toca al jugador 1, inserta la ficha en esa posición. 
      *          (Si hay hueco)
@@ -107,6 +114,7 @@ public:
      * @return Devuelve true si se ha introducido la ficha en la posición.
      *          False en otro caso.
      */
+
     bool colocarFicha(int pos);
     /**
      * @brief Cambia el turno del jugador que toca. 

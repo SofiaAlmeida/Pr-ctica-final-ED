@@ -103,6 +103,12 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
   //Mientras no haya ganador y no se pulse la tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
     system("clear");
+
+    if(tablero.hayEmpate()) {
+      cout << "Se ha producido un empate" << endl;
+      return -2;
+    }
+    
     if(tablero.GetTurno() == t_humano) {
       cout << "Jugador humano" << endl;
       imprimeTablero(tablero, mando); //Muestra tablero y mando en pantalla
@@ -117,7 +123,6 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
     }
     quienGana = tablero.quienGana();
   }
-
   system("clear");
   imprimeTablero(tablero, mando);
   return tablero.quienGana();
