@@ -20,7 +20,7 @@ documentacion:
 $(BIN)/arboltablero_test: $(OBJ)/arboltablero_test.o $(LIB)/libtablero.a 
 	$(CXX) -o $(BIN)/arboltablero_test $(OBJ)/arboltablero_test.o -I$(INC) -L$(LIB) -ltablero
 
-$(BIN)/main: $(LIB)/libconecta4.a $(LIB)/libtablero.a $(LIB)/libmando.a
+$(BIN)/main: $(SRC)/main.cpp $(LIB)/libconecta4.a $(LIB)/libtablero.a $(LIB)/libmando.a
 	$(CXX) -std=c++11 -o $(BIN)/main $(SRC)/main.cpp -I$(INC) -L$(LIB) -lconecta4 -ltablero -lmando
 
 $(LIB)/libtablero.a: $(OBJ)/tablero.o

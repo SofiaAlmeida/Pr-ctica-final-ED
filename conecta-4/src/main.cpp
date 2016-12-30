@@ -51,18 +51,12 @@ char getch() {
  */
 void imprimeTablero(Tablero & t, Mando &m) {
     cout << m.GetJugador() << endl;
-    cout << t ;
+    cout << t;
     cout << m.GetBase() << endl;
     cout << m.GetMando() << endl;
 }
 
-//..¿esto funciona?
-void imprimeTablero(Tablero &t) {
-    cout << t.GetTurno() << endl;
-    cout << t ;
-}
-
-//..Dejo por aquí la función original jugar_partida, jugar_partida actual está destinado a jugar con un jugador automático
+// Función original jugar_partida, jugar_partida actual está destinado a jugar con un jugador automático
 /**
  * @brief Implementa el desarrollo de una partida de Conecta 4 sobre un tablero 5x7, pidiendo por teclado los movimientos de ambos jugadores según turno.
  * @return : Identificador (int) del jugador que gana la partida (1 o 2).
@@ -97,7 +91,6 @@ int jugar_partida_humanos() {
  * 1: jugador humano
  * 2: jugador automático
  */
-//..PROBAR
 int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 1) {
   //(filas, columnas, metrica, turno)
   
@@ -109,17 +102,18 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
 
   //Mientras no haya ganador y no se pulse la tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
-    if(turno == t_humano) {
+    system("clear");
+    if(tablero.GetTurno() == t_humano) {
+      cout << "Jugador humano" << endl;
       imprimeTablero(tablero, mando); //Muestra tablero y mando en pantalla
       c = getch(); //Capturamos la tecla pulsada
-      system("clear");
       mando.actualizarJuego(c, tablero);
     }
     else {
-      imprimeTablero(tablero);
-      //.. si vemos que no tarda nada sleep(1);
+      cout << "Jugador automático" << endl;
+      cout << tablero; //Imprimimos el tablero
+      sleep(1);
       j_auto.turnoAutomatico(tablero);
-      imprimeTablero(tablero);
     }
     quienGana = tablero.quienGana();
   }
