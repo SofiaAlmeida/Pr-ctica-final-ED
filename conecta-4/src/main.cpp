@@ -118,6 +118,8 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
     quienGana = tablero.quienGana();
   }
 
+  system("clear");
+  imprimeTablero(tablero, mando);
   return tablero.quienGana();
 }
 

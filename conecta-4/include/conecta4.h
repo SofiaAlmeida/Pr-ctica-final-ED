@@ -19,6 +19,7 @@ class Conecta4 {
   int metrica;
   const int MAX_DEPTH = 5; //Número de niveles a comprobar
   //..puse cualquier valor para poder compilar, ya pensaremos cual queremos poner
+  
  public:
   /**
    * @brief Constructor
@@ -47,7 +48,7 @@ class Conecta4 {
    * @return true si ha insertado correctamente, false en caso contrario
    **/
   bool metrica2(Tablero &tablero);
-  
+
   /**
    * @brief Métrica que sólo verifica el siguiente nivel y corta la jugada rival en caso de posible derrota. Si no se decanta insertará aleatoriamente
    * @param tablero Tablero

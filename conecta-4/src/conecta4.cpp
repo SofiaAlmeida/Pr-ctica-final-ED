@@ -35,7 +35,42 @@ bool Conecta4::metrica2(Tablero &tablero) {
 }
 
 bool Conecta4::metrica_penultima(Tablero &tablero) {
-  //TODO
+  ArbolGeneral<Tablero> posibilidades(tablero);
+  //..No sé como hacer esto usando el dato que ya tenemos...
+  //..pendiente de revisión
+  int pos = 0;
+  int columnas = tablero.GetColumnas();
+  bool gana = false;
+  //..NO FUNCIONA
+  for(pos = 0; pos < columnas && !gana; ++pos) {
+    Tablero aux(tablero);
+    aux.colocarFicha(pos);
+    cout << "En la pos " << pos; //..
+    if(aux.quienGana() == 2) {
+      gana = true;
+      cout << "gana" << endl;
+      return tablero.colocarFicha(pos);
+    }
+    else {
+      cout << "no gana" << endl;
+      return metrica_ultima(tablero);
+    }
+  }
+  //.. evitar perder...NO FUNCIONA - REVIEW
+  /* bool evitar_derrota = false;
+
+  for(pos = 0; pos < columnas && !evitar_derrota; ++pos) {
+     Tablero aux(tablero);
+     aux.cambiarTurno();
+     aux.colocarFicha(pos);
+     if(aux.quienGana() == 1) //..poner una variable
+       evitar_derrota = true;
+  }
+  if(evitar_derrota) {
+    return tablero.colocarFicha(pos);
+  }
+  else
+  return metrica_ultima(tablero);*/
 }
 
  
