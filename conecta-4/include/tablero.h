@@ -1,4 +1,4 @@
-#ifndef __TABLERO_H__
+,#ifndef __TABLERO_H__
 #define __TABLERO_H__
 
 #include <vector>
@@ -57,9 +57,10 @@ private:
     const int filas;              ///< Número de filas que tiene el tablero.
     const int columnas;           ///< Número de columnas que tiene el tablero.
     int turno;                    ///< Indica a qué jugador le toca poner ficha. 1 para el jugador 1, 2 para el jugador 2.
+
     const int MAX_PIEZAS;
     int colocadas;		// Número de piezas insertadas en el momento
-
+ 
     void reserve();               ///< Crea el tablero de tamaño filas/columnas
 
 public:
@@ -75,18 +76,9 @@ public:
      *      El estado inicial del tablero es todo 0, es decir, todo el tablero
      *      está libre. El turno inicial es el del jugador 1.
      * @param filas : Número de filas que tendrá el tablero.
-     * @param columnas : Número de columnas del tablero.
+     * @param columnas : Nümero de columnas del tablero.
      */
     Tablero(const int filas, const int columnas);
-    /**
-     * @brief Constructor. Crea un tablero introduciendo el tamaño del mismo.
-     *      El estado inicial del tablero es todo 0, es decir, todo el tablero
-     *      está libre. El turno inicial es el del jugador 1.
-     * @param filas : Número de filas que tendrá el tablero.
-     * @param columnas : Número de columnas del tablero.
-     * @param turn : Turno del jugador que comenzará el juego
-     */
-    Tablero(const int filas, const int columnas, int turn);
     /**
      * @brief Constructor de copia. Crea un tablero a partir de otro dado.
      * @param t : Tablero origen que se va a copiar.
@@ -101,11 +93,14 @@ public:
      *      Si no hay hueco devuelve -1.
      */
     int hayHueco(int pos);
+
     /**
      * @brief Comprueba si se ha producido un empate
      * @return True si hay empate
      **/
     bool hayEmpate();
+
+      
     /**
      * @brief Coloca una ficha en la columna especificada del jugador correspondiente.
      *          Si le toca al jugador 1, inserta la ficha en esa posición. 
@@ -114,14 +109,13 @@ public:
      * @return Devuelve true si se ha introducido la ficha en la posición.
      *          False en otro caso.
      */
-
     bool colocarFicha(int pos);
     /**
      * @brief Cambia el turno del jugador que toca. 
      * @return Devuelve el turno que toca.
      */
     int cambiarTurno();
-
+   
     
     //-------------------------------------------------------------------------- 
     /**
@@ -153,10 +147,10 @@ public:
      * @brief Turno del estado actual.
      * @return Devuelve el turno del jugador. {1, 2}
      */
-    int GetTurno() { return turno; } 
+    int GetTurno() const { return turno; } 
     
     /**
-     * @brief Operador de igualdad. Asigna los valores del tablero de la derecha
+     * @brief Operador de asignación. Asigna los valores del tablero de la derecha
      *      al de la izquierda.
      * @param derecha : Tablero origen que se va a copiar.
      * @return Devuelve la referencia al tablero destino que se ha copiado.

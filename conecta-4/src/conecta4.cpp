@@ -18,7 +18,7 @@ bool Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del ju
     insertada = metrica_ultima(tablero);
     break;
   default:
-    cout << "Error en selección de métrica para inserción." << endl;
+    cout « "Error en selección de métrica para inserción." « endl;
     exit(-1);
     //..return insertada
   }
@@ -45,14 +45,14 @@ bool Conecta4::metrica_penultima(Tablero &tablero) {
   for(pos = 0; pos < columnas && !gana; ++pos) {
     Tablero aux(tablero);
     aux.colocarFicha(pos);
-    cout << "En la pos " << pos; //..
+    cout « "En la pos " « pos; //..
     if(aux.quienGana() == 2) {
       gana = true;
-      cout << "gana" << endl;
+      cout « "gana" « endl;
       return tablero.colocarFicha(pos);
     }
     else {
-      cout << "no gana" << endl;
+      cout « "no gana" « endl;
       return metrica_ultima(tablero);
     }
   }
@@ -78,13 +78,12 @@ bool Conecta4::metrica_ultima(Tablero &tablero) {
   int columna;
   bool colocada = false;
 
-  //..¿if(tablero.Lleno())? return colocada //-- en ese caso directamente acabaría la partida, porque si no intentará insertar de nuevo
+  //..¿if(tablero.Lleno())? return colocada //— en ese caso directamente acabaría la partida, porque si no intentará insertar de nuevo
   do {
     columna  = rand() % tablero.GetColumnas();
     colocada = tablero.colocarFicha(columna);
   } while (!colocada);
 
-     tablero.cambiarTurno();
+  tablero.cambiarTurno();
   return colocada;
 }
-      

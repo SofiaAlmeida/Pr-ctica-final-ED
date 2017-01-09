@@ -40,9 +40,9 @@ using namespace std;
 template <class Tbase>
 class ArbolGeneral{
  /**
-  * @brief repConjunto Rep del TDA ArbolGeneral
+  * @page repConjunto Rep del TDA Arbol General
   *
-  * |b Invariante de la representación
+  * @section invConjunto Invariante de la representación
   *
   * Sea \e T un Árbol General sobre el tipo \e Tbase. Entonces el
   * invariante de la representación es
@@ -57,7 +57,7 @@ class ArbolGeneral{
   * N(n) = 1 + N(n->izqda) + (N->drcha),
   * con N(0) = 0.
   *
-  * \b Función de abstracción
+  * @section faConjunto Función de abstracción
   *
   * Sea @e T un Árbol General sobre el tipo @e Tbase. Entonces, si lo denotamos
   * también Árbol(T.laraiz), es decir, como el árbol que cuelga de su raíz,
@@ -118,7 +118,15 @@ class ArbolGeneral{
         * @param e elemento que se le va a asignar.
         * Crea un nodo a con un elemento.
         */
-       nodo(const Tbase & elemento){padre = drcha = izqda = 0; etiqueta = elemento;}
+       nodo(const Tbase & elemento) : etiqueta(elemento) {padre = drcha = izqda = 0;}
+       /**
+       * @brief Destructor.
+       */
+       ~nodo(){
+           padre = 0;
+           izqda = 0;
+           drcha = 0;
+       }
     };
     
     /**
@@ -174,6 +182,7 @@ class ArbolGeneral{
       */
     bool soniguales(const nodo * n1, const nodo * n2) const;
     
+
     /**
       * @brief Escribe un subárbol
       * @param out Stream de salida donde escribir
@@ -355,6 +364,8 @@ class ArbolGeneral{
       * @param orig Árbol desde el que se va a copiar una rama
       * @param nod Nodo raíz del subárbol que se copia. 
       * @pre \e nod es un nodo del árbol \e orig y no es nulo
+      * @pre \e nod no debe ser un nodo del árbol receptor del mensaje
+      * @pre \e orig no debe ser un subárbol del árbol receptor del mensaje
       *
       * El árbol receptor acaba con un valor copia del subárbol que cuelga del 
       * nodo \e nod en el árbol \e orig. La operación se realiza en tiempo
@@ -616,7 +627,7 @@ class ArbolGeneral{
         }
         /**
          * @brief Siguiente elemento.
-         * @return Devuelve un iterador al siguiente elemento en preorden.
+         * @returm Devuelve un iterador al siguiente elemento en preorden.
          */
         preorden_iterador& operator++();
 
@@ -759,7 +770,7 @@ class ArbolGeneral{
         }
         /**
          * @brief Siguiente elemento.
-         * @return Devuelve un iterador al siguiente elemento en preorden inverso.
+         * @returm Devuelve un iterador al siguiente elemento en preorden inverso.
          */
         reverse_preorden_iterador& operator++();
 
@@ -933,6 +944,7 @@ class ArbolGeneral{
     class postorden_iterador{
     private:
         Nodo p;
+    public:
         /**
          * @brief Constructor por defecto.
          */
@@ -1087,10 +1099,12 @@ void ArbolGeneral <Tbase>::destruir (nodo * n){
 
 template <class Tbase>
 void ArbolGeneral<Tbase>::copiar(nodo * & dest, nodo * orig){
+    if(dest == 0)                                   //Si destino no tiene nada.
+        dest = new nodo;                            //Creamos un nuevo nodo.
     if(orig != 0){                                  //Nos aseguramos de que tenga algo.
         if(dest->izqda != 0)                        //Si tiene cosas las borramos.
             destruir(dest->izqda);
-        dest->izqda = new nodo(orig->etiqueta);     //Copiamos etiqueta.
+        dest = new nodo(orig->etiqueta);            //Copiamos etiqueta.
         
         copiar(dest->izqda, orig->izqda);           //Copiamos hijos.
         if(dest->izqda != 0)
@@ -1146,6 +1160,8 @@ bool ArbolGeneral<Tbase>::soniguales(const nodo * n1,const nodo * n2) const{
             return soniguales(n1->izqda, n2->izqda) && soniguales(n1->drcha, n2->drcha);
     }
 }
+
+
 
 /*____________________________________________________________ */
 
@@ -1208,7 +1224,7 @@ ArbolGeneral<Tbase>::ArbolGeneral(){
 }
 
 template <class Tbase>
-ArbolGeneral<Tbase>::ArbolGeneral(const Tbase& e){
+ArbolGeneral<Tbase>::ArbolGeneral(const Tbase& e) {
     laraiz = new nodo(e);                           //Un solo nodo con una etiqueta.
 }
     
@@ -1276,7 +1292,7 @@ const Tbase& ArbolGeneral<Tbase>::etiqueta(const Nodo n) const{
 template <class Tbase>
 void ArbolGeneral<Tbase>::
 asignar_subarbol(const ArbolGeneral<Tbase>& orig, const Nodo nod){
-    if(this != &nod){                               //Nos aseguramos que no vamos a copiar el mismo árbol.
+    if(laraiz!=nod){                             //Nos aseguramos que no vamos a copiar el mismo árbol.
         destruir(laraiz);                           //Borramos desde la raiz, lo que teníamos.
         copiar(laraiz, nod);                        //Copiamos el subárbol.
         laraiz->drcha = 0;
