@@ -94,10 +94,10 @@ int jugar_partida_humanos() {
 int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 1) {
   //(filas, columnas, metrica, turno)
   
-  Tablero tablero(filas, columnas, turno);      //Tablero filasxcolumnas 
+  Tablero tablero(filas, columnas, turno);      //Tablero filas x columnas 
   int quienGana = tablero.quienGana();
   char c = 1;
-  Conecta4 j_auto(metrica);
+  Conecta4 j_auto(tablero, metrica); //..¿ESTÁ IMPLEMENTADO ESTE CONSTRUCTOR?
   Mando mando(tablero);
 
   //Mientras no haya ganador y no se pulse la tecla de terminación
@@ -119,9 +119,10 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
       cout << "Jugador automático" << endl;
       imprimeTablero(tablero,mando);
       sleep(1);
-      j_auto.turnoAutomatico(tablero);
+      j_auto.turnoAutomatico(); //..¿ESTÁ IMPLEMENTADO?;
     }
     quienGana = tablero.quienGana();
+    j_auto.actualizar(tablero); //..¿ESTÁ IMPLEMENTADO? (tablero referencia constante)
   }
   system("clear");
   imprimeTablero(tablero, mando);
