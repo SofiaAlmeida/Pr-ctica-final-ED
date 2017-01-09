@@ -9,8 +9,8 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 
-	//Tablero vacío 5x7
-    Tablero tablero(5, 7);
+	//Tablero vacío 6x7
+    Tablero tablero(6, 7);
 
     //Manualmente se insertan algunos movimientos: 
     tablero.colocarFicha(3);	//Jugador 1 inserta ficha en columna 3
@@ -27,11 +27,11 @@ int main(int argc, char *argv[]){
 
     // Éste es el árbol que queremos montar: 
     // 				tablero
-    //			          |
+    //					|
     //			|---------------|
-    //	             tablero1       tablero2
-    //		       	                |
-    //			       	    tablero3
+    //		tablero1		tablero2
+    //							|
+    //						tablero3
 
 
     //Árbol 'partida', con 'tablero' como nodo raíz
@@ -64,7 +64,6 @@ int main(int argc, char *argv[]){
 	// Forma de hacerlo B: inserto un hijomasizquierda y hermanoderecha
 	partida.insertar_hijomasizquierda(partida.raiz(), arbol1);							//inserto un hijomasizquierda
 	partida.insertar_hermanoderecha(partida.hijomasizquierda(partida.raiz()), arbol2);	//le inserto un hermanoderecha
-    
 
     // Recorremos en preorden para comprobar el arbol 'partida' resultante
     cout << "\nÁrbol en preorden: \n"<<endl; 
@@ -72,11 +71,21 @@ int main(int argc, char *argv[]){
 
     // Podamos el hijomasizquierda y recorremos en preorden: 
     ArbolGeneral<Tablero> rama_podada;
-    partida.podar_hijomasizquierda(partida.raiz(), rama_podada);
+    partida.podar_hermanoderecha(partida.hijomasizquierda(partida.raiz()), rama_podada);
 
-	cout << "\nRecorrido preorden después de podar hijomasizquierda: \n"<<endl; 
+	cout << "\nRecorrido preorden después de podar arbol2: \n"<<endl; 
     partida.recorrer_preorden();
 
+    cout << "\nRecorrido preorden de la rama podada: \n"<<endl; 
+    rama_podada.recorrer_preorden();
+
+    // Probamos ArbolGeneral::asignar_subarbol. Asignamos a partida la rama_podada:
+    partida.asignar_subarbol(rama_podada, rama_podada.raiz());
+    cout << "\nRecorrido preorden después de asignar a la raiz la rama_podada: \n"<<endl; 
+    partida.recorrer_preorden();
+
+    cout << "\nRecorrido postorden después de asignar a la raiz la rama_podada: \n"<<endl; 
+    partida.recorrer_postorden();
 
     return 0;
 }

@@ -21,7 +21,7 @@ public:
     const static char KB_LEFT = 'a';
     const static char KB_RIGHT = 'd';
     const static char KB_SPACE = ' ';
-    const static char KB_ESCAPE = 27;
+    const static char KB_ESCAPE = 'q';
 
     /**
      * @brief Constructor. Inicializa las variables dado un tablero. 
