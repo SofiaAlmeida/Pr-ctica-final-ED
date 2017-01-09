@@ -1,4 +1,4 @@
-,#ifndef __TABLERO_H__
+#ifndef __TABLERO_H__
 #define __TABLERO_H__
 
 #include <vector>
@@ -76,7 +76,7 @@ public:
      *      El estado inicial del tablero es todo 0, es decir, todo el tablero
      *      está libre. El turno inicial es el del jugador 1.
      * @param filas : Número de filas que tendrá el tablero.
-     * @param columnas : Nümero de columnas del tablero.
+     * @param columnas : Número de columnas del tablero.
      */
     Tablero(const int filas, const int columnas);
     /**
