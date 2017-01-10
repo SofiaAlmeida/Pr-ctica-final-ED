@@ -23,10 +23,25 @@ class Conecta4 {
  public:
   /**
    * @brief Constructor
+   * @param tab tablero inicial
    * @param met metrica a utilizar durante la partida
    */
- Conecta4(int met) : metrica(met) {}
+ Conecta4(Tablero tab, int met) : metrica(met) {
+    arbol_posibilidades = ArbolGeneral<Tablero>(tab);
+    generar_arbol_posibilidades(arbol_posibilidades.raiz()) //.. Revisar nombre
+  }
 
+  /**
+   * @brief generamos el árbol de posibilidades
+   * @param raiz raíz del árbol a generar
+   * @return árbol 
+   */
+  generar_arbol_posibilidades(Nodo raiz) {
+    //..FUNCIÓN RECURSIVA
+    //..SI PROFUNDIDAD ==MAX_DEPTH ...CASO BASE...
+  }
+  
+  
   /**
    * @brief Cuando sea el turno del jugador automático operará según la métrica insertada. 
    * En caso de ser posible insertar una ficha en la posición indicada por la métrica, modifica el tablero
