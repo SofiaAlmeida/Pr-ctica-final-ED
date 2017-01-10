@@ -99,6 +99,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
   char c = 1;
   Conecta4 j_auto(tablero, metrica); //..¿ESTÁ IMPLEMENTADO ESTE CONSTRUCTOR?
   Mando mando(tablero);
+  bool insertado;
 
   //Mientras no haya ganador y no se pulse la tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
@@ -113,7 +114,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
       cout << "Jugador humano" << endl;
       imprimeTablero(tablero, mando); //Muestra tablero y mando en pantalla
       c = getch(); //Capturamos la tecla pulsada
-      mando.actualizarJuego(c, tablero);
+      insertado = mando.actualizarJuego(c, tablero);
     }
     else {
       cout << "Jugador automático" << endl;
@@ -122,7 +123,10 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
       j_auto.turnoAutomatico(); //..¿ESTÁ IMPLEMENTADO?;
     }
     quienGana = tablero.quienGana();
-    j_auto.actualizar(tablero); //..¿ESTÁ IMPLEMENTADO? (tablero referencia constante)
+
+    if (insertado) { //--No queremos actualizar la partida si no se insertó ficha
+      j_auto.actualizar(tablero); //..¿ESTÁ IMPLEMENTADO? (tablero referencia constante)
+    }
   }
   system("clear");
   imprimeTablero(tablero, mando);
