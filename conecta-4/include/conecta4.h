@@ -28,15 +28,17 @@ class Conecta4 {
    */
  Conecta4(Tablero tab, int met) : metrica(met) {
     arbol_posibilidades = ArbolGeneral<Tablero>(tab);
-    generar_arbol_posibilidades(arbol_posibilidades.raiz()) //.. Revisar nombre
+    generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0) //.. Revisar nombre
   }
+
+  //-- Tal vez debamos pasar un segundo parámetro que sirva para saber cual es la profundidad en la que se encuentra (lo pongo por si podemos ver que funcione así)
 
   /**
    * @brief generamos el árbol de posibilidades
    * @param raiz raíz del árbol a generar
    * @return árbol 
    */
-  generar_arbol_posibilidades(Nodo raiz) {
+  generar_arbol_posibilidades(Nodo raiz, int profundidad) {
     //..FUNCIÓN RECURSIVA
     //..SI PROFUNDIDAD ==MAX_DEPTH ...CASO BASE...
   }
