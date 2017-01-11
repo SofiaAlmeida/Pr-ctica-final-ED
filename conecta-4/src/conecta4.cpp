@@ -1,12 +1,12 @@
 #include "conecta4.h"
 
-void Conecta4::generar_arbol_posibilidades(Nodo raiz, int profundidad) { //-- Si le pasamos un nodo debemos de hacerlo por referencia para que se modifique el árbol original
+void Conecta4::generar_arbol_posibilidades(ArbolGeneral<Tablero>::Nodo& raiz, int profundidad) {
   profundidad++; //-- Primero aumentamos la profundidad, pues acabamos de descender a un hijo (en caso de ser la raíz pasamos del nivel 0 al 1)
   if (profundidad >= MAX_DEPTH) //-- Si ya estamos a la máxima profundidad no seguimos generando hijos
     return;
   
   int columnas = raiz.etiqueta.GetColumnas();
-  Nodo hijo (raiz), hermano;  //-- No queremos perder el nodo hijo para poder insertar a su derecha
+  ArbolGeneral<Tablero>::Nodo hijo(raiz), hermano;  //-- No queremos perder el nodo hijo para poder insertar a su derecha
   ArbolGeneral<Tablero> aux;
   
   
@@ -24,12 +24,12 @@ void Conecta4::generar_arbol_posibilidades(Nodo raiz, int profundidad) { //-- Si
   }
 
   //-- Para el resto de hijos
-  Nodo donde_insertar = hijo;
+  ArbolGeneral<Tablero>::Nodo donde_insertar = hijo;
   while (i < columnas) {
     if (raiz.etiqueta.hayHueco(i) != -1) {
       hermano = raiz;
       hermano.etiqueta.cambiarTurno();
-      aux.AsignaRaiz(hermano);
+      aux.AsignaRaiz(hermano); //..a asigna raiz hay que pasarle un tablero
       hijo.insertar_hermanoderecha(donde_insertar,hermano);
       donde_insertar = hermano; //-- En caso de otra siguiente iteración queremos que esté a la derecha del último hermano insertado
       genera_arbol_posibilidades(hermano,profundidad)
