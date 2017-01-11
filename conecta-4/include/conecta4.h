@@ -38,7 +38,7 @@ class Conecta4 {
    * @param raiz raíz del árbol a generar
    * @return árbol 
    */
-  generar_arbol_posibilidades(Nodo raiz, int profundidad) {
+  generar_arbol_posibilidades(Nodo& raiz, int profundidad) {
     //..FUNCIÓN RECURSIVA
     //..SI PROFUNDIDAD ==MAX_DEPTH ...CASO BASE...
   }
