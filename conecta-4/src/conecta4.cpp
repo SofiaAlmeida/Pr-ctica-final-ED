@@ -1,39 +1,45 @@
 #include "conecta4.h"
 
-void Conecta4::generar_arbol_posibilidades(ArbolGeneral<Tablero>::Nodo& raiz, int profundidad) {
+void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& raiz, int profundidad) {
   profundidad++; //-- Primero aumentamos la profundidad, pues acabamos de descender a un hijo (en caso de ser la raíz pasamos del nivel 0 al 1)
   if (profundidad >= MAX_DEPTH) //-- Si ya estamos a la máxima profundidad no seguimos generando hijos
     return;
   
   int columnas = arbol_posibilidades.etiqueta(raiz).GetColumnas();
-  ArbolGeneral<Tablero>::Nodo hijo(raiz), hermano;  //-- No queremos perder el nodo hijo para poder insertar a su derecha
+  //ArbolGeneral<Tablero>::Nodo hijo(raiz), hermano;  //-- No queremos perder el nodo hijo para poder insertar a su derecha
   ArbolGeneral<Tablero> aux;
+  Tablero hijo(arbol_posibilidades.etiqueta(raiz));
   
   
   int i;
-  bool insertado = false; //-- La forma de insertar se hace primero se inserta en el hijo izquierda y luego insertamos en los hermanos derecha, por lo tanto primero tenemos que buscar el primer hueco, si lo hay usamos insertar__hijomasizquierda(), pero para los siguientes hijos tenemos que insertar como hermanos_derecha del hijo que ya tenemos, por eso usamos esta condicional para distinguir el tipo de inserción que tenemos que hacer
+  bool insertado = false; //-- La forma de insertar se hace primero se inserta en el hijo izquierda y luego insertamos en los hermanos derecha, por lo tanto primero tenemos que buscar el primer hueco, si lo hay usamos insertar__hijomasizquierda(), pero para los siguientes hijosraiz tenemos que insertar como hermanos_derecha del hijo que ya tenemos, por eso usamos esta condicional para distinguir el tipo de inserción que tenemos que hacer
   
-  for ( i = 0; i < columnas || insertado == true; ++i) {
+  for ( i = 0; i < columnas && !insertado; ++i) {
     if (arbol_posibilidades.etiqueta(raiz).hayHueco(i) != -1) {	//-- Comprobar si se empieza a contar en la columa 0 o en la columna 1, si es en la 1 hay que cambiar i = 1 y la condición < por <=
-      arbol_posibilidades.etiqueta(hijo).cambiarTurno();
-      insertado = arbol_posibilidades.etiqueta(hijo).colocarFicha(i);
-      aux.AsignaRaiz(arbol_posibilidades.etiqueta(hijo));
+      hijo.cambiarTurno();
+      insertado = hijo.colocarFicha(i);
+      aux.AsignaRaiz(hijo);
       arbol_posibilidades.insertar_hijomasizquierda(raiz, aux);
-      genera_arbol_posibilidades(hijo,profundidad);
+      genera_arbol_posibilidades(arbol_posibilidades.hijomasizquierda(raiz), profundidad);
+      
     }
   }
 
   //-- Para el resto de hijos
-  ArbolGeneral<Tablero>::Nodo donde_insertar = hijo;
+  ArbolGeneral<Tablero>::Nodo donde_insertar = arbol_posibilidades.hijomasizquierda(raiz);
+
+
+    Tablero hermano;
   while (i < columnas) {
     if (arbol_posibilidades.etiqueta(raiz).hayHueco(i) != -1) {
-      hermano = raiz;
-      arbol_posibilidades.etiqueta(hermano).cambiarTurno();
-      arbol_posibilidades.etiqueta(hermano).colocarFicha(i);
-      aux.AsignaRaiz(arbol_posibilidades.etiqueta(hermano)); //..a asigna raiz hay que pasarle un tablero
-      arbol_posibilidades.insertar_hermanoderecha(donde_insertar,hermano);
-      donde_insertar = hermano.raiz(); //-- En caso de otra siguiente iteración queremos que esté a la derecha del último hermano insertado
-      genera_arbol_posibilidades(hermano,profundidad)
+      
+      hermano = arbol_posibilidades.etiqueta(raiz);
+      hermano.cambiarTurno();
+      hermano.colocarFicha(i);
+      aux.AsignaRaiz(hermano);
+      arbol_posibilidades.insertar_hermanoderecha(donde_insertar, aux);
+      donde_insertar = hermanomasderecha(donde_insertar);
+      genera_arbol_posibilidades(donde_insertar, profundidad);
     }
     i++;
   }

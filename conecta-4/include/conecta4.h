@@ -39,7 +39,7 @@ class Conecta4 {
    * @param profundidad en la que se encuentra dicho nodo
    * @return árbol 
    */
-  void generar_arbol_posibilidades(ArbolGeneral<Tablero>::Nodo& raiz, int profundidad); 
+  void generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& raiz, int profundidad); 
   
   
   /**
