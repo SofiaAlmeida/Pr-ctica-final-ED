@@ -1,8 +1,14 @@
 #include "conecta4.h"
 
+Conecta4::Conecta4(const Tablero& tab, int met) {
+  metrica = met;
+  arbol_posibilidades = ArbolGeneral<Tablero>(tab);
+  generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0);
+}
+
 void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& raiz, int profundidad) {
   profundidad++; //-- Primero aumentamos la profundidad, pues acabamos de descender a un hijo (en caso de ser la raíz pasamos del nivel 0 al 1)
-  if (profundidad >= MAX_DEPTH) //-- Si ya estamos a la máxima profundidad no seguimos generando hijos
+  if (profundidad > MAX_DEPTH) //-- Si ya estamos a la máxima profundidad no seguimos generando hijos
     return;
   
   int columnas = arbol_posibilidades.etiqueta(raiz).GetColumnas();
@@ -20,26 +26,23 @@ void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& ra
       insertado = hijo.colocarFicha(i);
       aux.AsignaRaiz(hijo);
       arbol_posibilidades.insertar_hijomasizquierda(raiz, aux);
-      genera_arbol_posibilidades(arbol_posibilidades.hijomasizquierda(raiz), profundidad);
+      generar_arbol_posibilidades(arbol_posibilidades.hijomasizquierda(raiz), profundidad);
       
     }
   }
 
   //-- Para el resto de hijos
   ArbolGeneral<Tablero>::Nodo donde_insertar = arbol_posibilidades.hijomasizquierda(raiz);
-
-
-    Tablero hermano;
+  
   while (i < columnas) {
     if (arbol_posibilidades.etiqueta(raiz).hayHueco(i) != -1) {
-      
-      hermano = arbol_posibilidades.etiqueta(raiz);
+      Tablero hermano(arbol_posibilidades.etiqueta(raiz)); 
       hermano.cambiarTurno();
       hermano.colocarFicha(i);
       aux.AsignaRaiz(hermano);
       arbol_posibilidades.insertar_hermanoderecha(donde_insertar, aux);
-      donde_insertar = hermanomasderecha(donde_insertar);
-      genera_arbol_posibilidades(donde_insertar, profundidad);
+      donde_insertar = arbol_posibilidades.hermanoderecha(donde_insertar);
+      generar_arbol_posibilidades(donde_insertar, profundidad);
     }
     i++;
   }

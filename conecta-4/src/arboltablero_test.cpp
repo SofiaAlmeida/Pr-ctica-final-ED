@@ -2,6 +2,7 @@
 #include <iostream>
 #include "ArbolGeneral.h"
 #include "tablero.h"
+#include "conecta4.h"
 #include <string>
 
 using namespace std;
@@ -10,9 +11,9 @@ using namespace std;
 int main(int argc, char *argv[]){
 
 	//Tablero vacío 6x7
-    Tablero tablero(6, 7);
+    Tablero tablero(4, 4);
 
-    //Manualmente se insertan algunos movimientos: 
+    /*   //Manualmente se insertan algunos movimientos: 
     tablero.colocarFicha(3);	//Jugador 1 inserta ficha en columna 3
     tablero.cambiarTurno();
     tablero.colocarFicha(1);	//Jugador 2 inserta ficha en columna 1
@@ -80,12 +81,16 @@ int main(int argc, char *argv[]){
     rama_podada.recorrer_preorden();
 
     // Probamos ArbolGeneral::asignar_subarbol. Asignamos a partida la rama_podada:
-    partida.asignar_subarbol(rama_podada, rama_podada.raiz());
-    cout << "\nRecorrido preorden después de asignar a la raiz la rama_podada: \n"<<endl; 
-    partida.recorrer_preorden();
+    partida.asignar_subarbol(rama_podada, rama_podada.raiz());*/
+    Conecta4 conecta4(tablero, 1);
 
-    cout << "\nRecorrido postorden después de asignar a la raiz la rama_podada: \n"<<endl; 
-    partida.recorrer_postorden();
+    
+    cout << "\nRecorrido preorden después de asignar a la raiz la rama_podada: \n"<<endl;
+    conecta4.mostrar_arbol_preorden();
+    conecta4.get_arbol_posibilidades().recorrer_preorden();
+
+    /*    cout << "\nRecorrido postorden después de asignar a la raiz la rama_podada: \n"<<endl; 
+	  partida.recorrer_postorden();*/
 
     return 0;
 }

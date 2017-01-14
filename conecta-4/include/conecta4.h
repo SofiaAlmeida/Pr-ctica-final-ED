@@ -17,7 +17,7 @@ class Conecta4 {
  private:
   ArbolGeneral<Tablero> arbol_posibilidades;
   int metrica;
-  const int MAX_DEPTH = 5; //Número de niveles a comprobar
+  const int MAX_DEPTH = 3; //Número de niveles a comprobar
   //..puse cualquier valor para poder compilar, ya pensaremos cual queremos poner
   
  public:
@@ -26,12 +26,8 @@ class Conecta4 {
    * @param tab tablero inicial
    * @param met metrica a utilizar durante la partida
    */
- Conecta4(Tablero tab, int met) : metrica(met) {
-    arbol_posibilidades = ArbolGeneral<Tablero>(tab);
-    generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0) //..Raiz devuelve un const y nosotros lo estamos modificando !!
-  }
-
-  //-- Tal vez debamos pasar un segundo parámetro que sirva para saber cual es la profundidad en la que se encuentra (lo pongo por si podemos ver que funcione así)
+  Conecta4(const Tablero& tab, int met);
+  
 
   /**
    * @brief generamos el árbol de posibilidades
@@ -49,7 +45,14 @@ class Conecta4 {
    * @return true si se pudo insertar
    */
   bool turnoAutomatico(Tablero &tablero);
-  
+
+  ArbolGeneral<Tablero> get_arbol_posibilidades() const {return arbol_posibilidades;}
+
+  /**
+   * @brief Muestra el recorrido en preorden del árbol de posibilidades
+   */  
+  void mostrar_arbol_preorden() {arbol_posibilidades.recorrer_preorden();}
+
   /**
    * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales
    * @param tablero Tablero dónde insertará

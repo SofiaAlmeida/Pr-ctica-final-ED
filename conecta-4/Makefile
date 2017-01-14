@@ -17,8 +17,8 @@ documentacion:
 
 	
 # ************ Compilación de módulos ************
-$(BIN)/arboltablero_test: $(OBJ)/arboltablero_test.o $(LIB)/libtablero.a 
-	$(CXX) -o $(BIN)/arboltablero_test $(OBJ)/arboltablero_test.o -I$(INC) -L$(LIB) -ltablero
+$(BIN)/arboltablero_test: $(OBJ)/arboltablero_test.o $(OBJ)/conecta4.o $(LIB)/libtablero.a $(LIB)/libconecta4.a
+	$(CXX) -o $(BIN)/arboltablero_test $(OBJ)/arboltablero_test.o $(OBJ)/conecta4.o -I$(INC) -L$(LIB) -ltablero
 
 $(BIN)/main: $(SRC)/main.cpp $(LIB)/libconecta4.a $(LIB)/libtablero.a $(LIB)/libmando.a
 	$(CXX) -std=c++11 -o $(BIN)/main $(SRC)/main.cpp -I$(INC) -L$(LIB) -lconecta4 -ltablero -lmando
@@ -41,7 +41,7 @@ $(OBJ)/arboltablero_test.o: $(SRC)/arboltablero_test.cpp $(INC)/tablero.h
 $(OBJ)/mando.o: $(SRC)/mando.cpp $(INC)/mando.h $(INC)/tablero.h
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/mando.o $(SRC)/mando.cpp -I$(INC)
 
-$(OBJ)/conecta4.o: $(SRC)/conecta4.cpp
+$(OBJ)/conecta4.o: $(SRC)/conecta4.cpp $(INC)/conecta4.h	
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/conecta4.o $(SRC)/conecta4.cpp -I$(INC)
 # ************ Limpieza ************
 clean :
