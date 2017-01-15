@@ -21,7 +21,7 @@ void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& ra
   bool insertado = false; //-- La forma de insertar se hace primero se inserta en el hijo izquierda y luego insertamos en los hermanos derecha, por lo tanto primero tenemos que buscar el primer hueco, si lo hay usamos insertar__hijomasizquierda(), pero para los siguientes hijosraiz tenemos que insertar como hermanos_derecha del hijo que ya tenemos, por eso usamos esta condicional para distinguir el tipo de inserción que tenemos que hacer
   
   for ( i = 0; i < columnas && !insertado; ++i) {
-    if (arbol_posibilidades.etiqueta(raiz).hayHueco(i) != -1) {	//-- Comprobar si se empieza a contar en la columa 0 o en la columna 1, si es en la 1 hay que cambiar i = 1 y la condición < por <=
+    if (arbol_posibilidades.etiqueta(raiz).hayHueco(i) != -1) {
       hijo.cambiarTurno();
       insertado = hijo.colocarFicha(i);
       aux.AsignaRaiz(hijo);
@@ -49,6 +49,7 @@ void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& ra
   return;
 }
 
+
 bool Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del jugador automático llamamos a esta función para que elija dónde se ha de insertar la ficha, llamamos a colocar ficha dentro de cada métrica
   bool insertada = false;
   
@@ -74,7 +75,42 @@ bool Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del ju
 
   return insertada;
 } 
+
+void Conecta4::actualizar(const Tablero& tablero) {
+  //.. int columnas = arbol_posibilidades.etiqueta(arbol_posibilidades.raiz()).GetColumnas();
+  bool encontrado = false;
+  ArbolGeneral<Tablero>::Nodo n = arbol_posibilidades.hijomasizquierda(arbol_posibilidades.raiz());
   
+  //Recorremos los hijos de izquierda a derecha
+  //Comprobando si el tablero es igual al pasado
+  while(!encontrado) {
+    //..no sabía si poner en la condición && n != 0 (no tiene más hermanos a la derecha...se supone que lo encontrará siempre no??
+
+    // Comprobamos si el tablero es igual al pasado
+    //..este operador no esta sobrecargado!!!
+    //..TODO
+    if(tablero == arbol_posibilidades.etiqueta(n))
+      encontrado = true;
+    else
+      n = arbol_posibilidades.hermanoderecha(n);
+  }
+
+  // Podamos los nodos que no nos hacen falta
+  //..Escribir bien el comentario previo
+  arbol_posibilidades.AsignaRaiz(arbol_posibilidades.etiqueta(n));
+  
+  // Llamamos a generar_arbol para los hijos del último nivel ese nodo
+  //.. Recorremos en postorden y vamos llamando a generar_arbol_posibilidades (la comprobación de la altura se realiza dentro de ese método)
+  //.. En realidad no nos hace falta recorrer el árbol entero
+  //..solo los dos últimos niveles
+  ArbolGeneral<Tablero>::postorden_iterador it(n);
+
+  for(it = arbol_posibilidades.beginpostorden(); it != arbol_posibilidades.endpostorden(); ++it) {
+    //..REVIEW no tengo claro como llamar a altura con el iterador
+    generar_arbol_posibilidades(*it, arbol_posibilidades.altura(it));
+  }
+}
+
 bool Conecta4::metrica1(Tablero &tablero) {
   //TODO
 }

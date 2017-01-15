@@ -50,9 +50,16 @@ class Conecta4 {
 
   /**
    * @brief Muestra el recorrido en preorden del árbol de posibilidades
+   * @return Void
    */  
   void mostrar_arbol_preorden() {arbol_posibilidades.recorrer_preorden();}
 
+
+  /**
+   * @brief actualiza el árbol de posibilidades, dejando como raíz el tablero pasado y completando el árbol hasta la profundidad MAX_DEPTH   * @param tablero actual, a partir del cual se regenera el árbol (aprovechando lo generado anteriormente
+   */
+  void actualizar(const Tablero& tablero);
+  
   /**
    * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales
    * @param tablero Tablero dónde insertará
