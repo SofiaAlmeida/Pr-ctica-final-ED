@@ -95,9 +95,12 @@ void Conecta4::actualizar(const Tablero& tablero) {
       n = arbol_posibilidades.hermanoderecha(n);
   }
 
+  // La raíz pasa a ser el nodo encontrado
+  arbol_posibilidades.AsignaRaiz(arbol_posibilidades.etiqueta(n));
+  generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0);
+  /*
   // Podamos los nodos que no nos hacen falta
   //..Escribir bien el comentario previo
-  arbol_posibilidades.AsignaRaiz(arbol_posibilidades.etiqueta(n));
   
   // Llamamos a generar_arbol para los hijos del último nivel ese nodo
   //.. Recorremos en postorden y vamos llamando a generar_arbol_posibilidades (la comprobación de la altura se realiza dentro de ese método)
@@ -108,7 +111,7 @@ void Conecta4::actualizar(const Tablero& tablero) {
   for(it = arbol_posibilidades.beginpostorden(); it != arbol_posibilidades.endpostorden(); ++it) {
     //..REVIEW no tengo claro como llamar a altura con el iterador
     generar_arbol_posibilidades(*it, arbol_posibilidades.altura(it));
-  }
+    }*/
 }
 
 bool Conecta4::metrica1(Tablero &tablero) {
