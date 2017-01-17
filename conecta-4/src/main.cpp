@@ -115,6 +115,9 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
       imprimeTablero(tablero, mando); //Muestra tablero y mando en pantalla
       c = getch(); //Capturamos la tecla pulsada
       insertado = mando.actualizarJuego(c, tablero);
+      if (insertado) { //--No queremos actualizar la partida si no se insertó ficha
+	j_auto.actualizar(tablero); //..¿ESTÁ IMPLEMENTADO? (tablero referencia constante)
+      }
     }
     else {
       cout << "Jugador automático" << endl;
@@ -124,9 +127,6 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
     }
     quienGana = tablero.quienGana();
 
-    if (insertado) { //--No queremos actualizar la partida si no se insertó ficha
-      j_auto.actualizar(tablero); //..¿ESTÁ IMPLEMENTADO? (tablero referencia constante)
-    }
   }
   system("clear");
   imprimeTablero(tablero, mando);

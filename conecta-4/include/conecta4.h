@@ -18,8 +18,7 @@ class Conecta4 {
   ArbolGeneral<Tablero> arbol_posibilidades;
   int metrica;
   const int MAX_DEPTH = 3; //Número de niveles a comprobar
-  //..puse cualquier valor para poder compilar, ya pensaremos cual queremos poner
-  
+ 
  public:
   /**
    * @brief Constructor
@@ -33,6 +32,7 @@ class Conecta4 {
    * @brief generamos el árbol de posibilidades
    * @param raiz raíz del árbol a generar
    * @param profundidad en la que se encuentra dicho nodo
+   * @pre El nodo a partir del cual queremos generar el árbol, debe estar ya en el árbol
    * @return árbol 
    */
   void generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& raiz, int profundidad); 

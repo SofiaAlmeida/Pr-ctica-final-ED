@@ -77,41 +77,8 @@ bool Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del ju
 } 
 
 void Conecta4::actualizar(const Tablero& tablero) {
-  //.. int columnas = arbol_posibilidades.etiqueta(arbol_posibilidades.raiz()).GetColumnas();
-  bool encontrado = false;
-  ArbolGeneral<Tablero>::Nodo n = arbol_posibilidades.hijomasizquierda(arbol_posibilidades.raiz());
-  
-  //Recorremos los hijos de izquierda a derecha
-  //Comprobando si el tablero es igual al pasado
-  while(!encontrado) {
-    //..no sabía si poner en la condición && n != 0 (no tiene más hermanos a la derecha...se supone que lo encontrará siempre no??
-
-    // Comprobamos si el tablero es igual al pasado
-    //..este operador no esta sobrecargado!!!
-    //..TODO
-    if(tablero == arbol_posibilidades.etiqueta(n))
-      encontrado = true;
-    else
-      n = arbol_posibilidades.hermanoderecha(n);
-  }
-
-  // La raíz pasa a ser el nodo encontrado
-  arbol_posibilidades.AsignaRaiz(arbol_posibilidades.etiqueta(n));
+  arbol_posibilidades.AsignaRaiz(tablero);
   generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0);
-  /*
-  // Podamos los nodos que no nos hacen falta
-  //..Escribir bien el comentario previo
-  
-  // Llamamos a generar_arbol para los hijos del último nivel ese nodo
-  //.. Recorremos en postorden y vamos llamando a generar_arbol_posibilidades (la comprobación de la altura se realiza dentro de ese método)
-  //.. En realidad no nos hace falta recorrer el árbol entero
-  //..solo los dos últimos niveles
-  ArbolGeneral<Tablero>::postorden_iterador it(n);
-
-  for(it = arbol_posibilidades.beginpostorden(); it != arbol_posibilidades.endpostorden(); ++it) {
-    //..REVIEW no tengo claro como llamar a altura con el iterador
-    generar_arbol_posibilidades(*it, arbol_posibilidades.altura(it));
-    }*/
 }
 
 bool Conecta4::metrica1(Tablero &tablero) {
