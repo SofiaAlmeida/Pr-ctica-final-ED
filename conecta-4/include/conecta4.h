@@ -3,8 +3,8 @@
 
 #include "tablero.h"
 #include "ArbolGeneral.h"
-#include <cstdlib>		//rand()
-
+#include <cstdlib> //rand()
+#include <pair>
 
 /******************************************************************************/
 /**
@@ -54,11 +54,17 @@ class Conecta4 {
    */  
   void mostrar_arbol_preorden() {arbol_posibilidades.recorrer_preorden();}
 
-
   /**
    * @brief actualiza el árbol de posibilidades, dejando como raíz el tablero pasado y completando el árbol hasta la profundidad MAX_DEPTH   * @param tablero actual, a partir del cual se regenera el árbol (aprovechando lo generado anteriormente
    */
   void actualizar(const Tablero& tablero);
+
+  /**
+   * @brief recorre el árbol devolviendo el mejor tablero 
+   * @param Nodo que será la raíz del subárbol a recorrer
+   * @return un pair formado por el mejor tablero y su puntuación 
+   */
+  pair<Tablero, int> recorrer_arbol(const ArbolGeneral<Tablero>::Nodo& raiz);
   
   /**
    * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales

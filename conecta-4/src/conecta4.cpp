@@ -20,7 +20,7 @@ void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& ra
   int i;
   bool insertado = false; //-- La forma de insertar se hace primero se inserta en el hijo izquierda y luego insertamos en los hermanos derecha, por lo tanto primero tenemos que buscar el primer hueco, si lo hay usamos insertar__hijomasizquierda(), pero para los siguientes hijosraiz tenemos que insertar como hermanos_derecha del hijo que ya tenemos, por eso usamos esta condicional para distinguir el tipo de inserción que tenemos que hacer
   
-  for ( i = 0; i < columnas && !insertado; ++i) {
+  for (i = 0; i < columnas && !insertado; ++i) {
     if (arbol_posibilidades.etiqueta(raiz).hayHueco(i) != -1) {
       hijo.cambiarTurno();
       insertado = hijo.colocarFicha(i);
@@ -49,8 +49,36 @@ void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& ra
   return;
 }
 
+pair<Tablero, int> Conecta4::recorrer_arbol(const ArbolGeneral<Tablero>::Nodo& raiz) {
+    ArbolGeneral::Nodo n = arbol_posibilidades.hijomasizquierda(raiz);
+  if(arbol_posibilidades.altura(raiz) == 0) {
+    //..Caso base
+    //..Llamo a métrica para cada tablero y devuelvo el máximo y su puntuación
 
-bool Conecta4::turnoAutomatico(Tablero &tablero) { // Cuando sea el turno del jugador automático llamamos a esta función para que elija dónde se ha de insertar la ficha, llamamos a colocar ficha dentro de cada métrica
+    pair<Tablero, int> max;
+    pair<Tablero, int> p;
+    
+    do {
+      p = metrica(n.etiqueta(raiz));
+      if(max.second < p.second)
+	max = p;
+    } while((n = arbol_posibilidades.hermanoderecha(raiz)) != NULL);
+
+    return max;
+  }
+  else {
+    //..Resto de casos
+    //..Para cada hijo llamo a recorrer_arbol 
+    do {
+      recorrer_arbol(n);
+    } while((n = arbol_posibilidades.hermanoderecha(raiz)) != NULL);
+  }
+}
+
+bool Conecta4::turnoAutomatico(Tablero &tablero) {
+  //..Llamar a recorrer_arbol y quedarse con el tablero correspondiente
+  
+  // Cuando sea el turno del jugador automático llamamos a esta función para que elija dónde se ha de insertar la ficha, llamamos a colocar ficha dentro de cada métrica
   bool insertada = false;
   
   switch (metrica) {
