@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char *argv[]){
 
 	//Tablero vacío 6x7
-    Tablero tablero(4, 4);
+    Tablero tablero(3, 3);
 
     /*   //Manualmente se insertan algunos movimientos: 
     tablero.colocarFicha(3);	//Jugador 1 inserta ficha en columna 3
@@ -83,11 +83,22 @@ int main(int argc, char *argv[]){
     // Probamos ArbolGeneral::asignar_subarbol. Asignamos a partida la rama_podada:
     partida.asignar_subarbol(rama_podada, rama_podada.raiz());*/
     Conecta4 conecta4(tablero, 1);
+    tablero.colocarFicha(2);
+    conecta4.actualizar(tablero);
 
+    cout << tablero;
     
     cout << "\nRecorrido preorden después de asignar a la raiz la rama_podada: \n"<<endl;
     conecta4.mostrar_arbol_preorden();
     conecta4.get_arbol_posibilidades().recorrer_preorden();
+
+    cout << "Fin del recorrido" << endl;
+
+    pair<ArbolGeneral<Tablero>::Nodo, int> intermedio = conecta4.recorrer_arbol(conecta4.get_arbol_posibilidades().raiz());
+
+    cout << "Puntuación: " << intermedio.second << endl;
+    cout << "Tablero a elegir: " << conecta4.get_arbol_posibilidades().etiqueta(intermedio.first) << endl;
+    
 
     /*    cout << "\nRecorrido postorden después de asignar a la raiz la rama_podada: \n"<<endl; 
 	  partida.recorrer_postorden();*/

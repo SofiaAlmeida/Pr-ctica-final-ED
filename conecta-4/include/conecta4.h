@@ -4,7 +4,7 @@
 #include "tablero.h"
 #include "ArbolGeneral.h"
 #include <cstdlib> //rand()
-#include <pair>
+#include <utility> //pair
 
 /******************************************************************************/
 /**
@@ -16,7 +16,7 @@
 class Conecta4 {
  private:
   ArbolGeneral<Tablero> arbol_posibilidades;
-  int metrica;
+  int metrica_elegida;
   const int MAX_DEPTH = 3; //Número de niveles a comprobar
  
  public:
@@ -64,7 +64,7 @@ class Conecta4 {
    * @param Nodo que será la raíz del subárbol a recorrer
    * @return un pair formado por el mejor tablero y su puntuación 
    */
-  pair<Tablero, int> recorrer_arbol(const ArbolGeneral<Tablero>::Nodo& raiz);
+  pair<ArbolGeneral<Tablero>::Nodo, int> recorrer_arbol(const ArbolGeneral<Tablero>::Nodo& raiz);
   
   /**
    * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales
@@ -92,6 +92,8 @@ class Conecta4 {
    * @return true si ha podido insertar, false en caso contrario
    */
   bool metrica_ultima(Tablero &tablero);
+
+  int metrica(const Tablero& tablero);
 };
 
 #endif

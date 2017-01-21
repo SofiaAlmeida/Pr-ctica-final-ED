@@ -1,7 +1,7 @@
 #include "conecta4.h"
 
 Conecta4::Conecta4(const Tablero& tab, int met) {
-  metrica = met;
+  metrica_elegida = met;
   arbol_posibilidades = ArbolGeneral<Tablero>(tab);
   generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0);
 }
@@ -49,30 +49,41 @@ void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& ra
   return;
 }
 
-pair<Tablero, int> Conecta4::recorrer_arbol(const ArbolGeneral<Tablero>::Nodo& raiz) {
-    ArbolGeneral::Nodo n = arbol_posibilidades.hijomasizquierda(raiz);
+pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGeneral<Tablero>::Nodo& raiz) {
   if(arbol_posibilidades.altura(raiz) == 0) {
-    //..Caso base
-    //..Llamo a métrica para cada tablero y devuelvo el máximo y su puntuación
-
-    pair<Tablero, int> max;
-    pair<Tablero, int> p;
+    cout << "Altura == 0" << endl;
+    pair<ArbolGeneral<Tablero>::Nodo, int> p(raiz, metrica(arbol_posibilidades.etiqueta(raiz)));
     
-    do {
-      p = metrica(n.etiqueta(raiz));
-      if(max.second < p.second)
-	max = p;
-    } while((n = arbol_posibilidades.hermanoderecha(raiz)) != NULL);
-
-    return max;
+    return p;
   }
   else {
     //..Resto de casos
-    //..Para cada hijo llamo a recorrer_arbol 
-    do {
-      recorrer_arbol(n);
-    } while((n = arbol_posibilidades.hermanoderecha(raiz)) != NULL);
+    //..Para cada hijo llamo a recorrer_arbol
+    pair<ArbolGeneral<Tablero>::Nodo, int> maximo = recorrer_arbol(arbol_posibilidades.hijomasizquierda(raiz));
+    //cout << "maximo " << arbol_posibilidades.etiqueta(maximo.first) << maximo.second << endl;
+    if(arbol_posibilidades.altura(raiz) != 1) {
+      maximo.first = arbol_posibilidades.hijomasizquierda(raiz);
+    }
+    pair<ArbolGeneral<Tablero>::Nodo, int> intermedio(maximo);
+    
+    cout << "Altura = " << arbol_posibilidades.altura(raiz) << ", hermanoderecha(intermedio.first)" << endl;
+    cout << arbol_posibilidades.etiqueta(arbol_posibilidades.hermanoderecha(intermedio.first));
+    ArbolGeneral<Tablero>::Nodo  nodo_aux;
+      
+    while((arbol_posibilidades.hermanoderecha(intermedio.first)) != NULL) {
+      nodo_aux = arbol_posibilidades.hermanoderecha(intermedio.first);
+      
+      intermedio = recorrer_arbol(nodo_aux);
+      intermedio.first =  nodo_aux;
+      
+      if(maximo.second < intermedio.second)
+	maximo = intermedio;
+    }
+    cout << "Hermano derecha de: " << arbol_posibilidades.etiqueta(nodo_aux) << "NULL" << endl;
+    
+    return maximo;
   }
+    
 }
 
 bool Conecta4::turnoAutomatico(Tablero &tablero) {
@@ -81,7 +92,7 @@ bool Conecta4::turnoAutomatico(Tablero &tablero) {
   // Cuando sea el turno del jugador automático llamamos a esta función para que elija dónde se ha de insertar la ficha, llamamos a colocar ficha dentro de cada métrica
   bool insertada = false;
   
-  switch (metrica) {
+  switch (metrica_elegida) {
 
   case 1:
     insertada = metrica1(tablero);
@@ -169,4 +180,11 @@ bool Conecta4::metrica_ultima(Tablero &tablero) {
 
   tablero.cambiarTurno();
   return colocada;
+}
+
+int Conecta4::metrica(const Tablero& tablero) {
+  cout << tablero;
+  int puntuacion = rand() % 100;
+  cout << "Puntuación: " << puntuacion << endl;
+  return puntuacion;
 }
