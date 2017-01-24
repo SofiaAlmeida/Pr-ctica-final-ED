@@ -53,7 +53,7 @@ int Tablero::hayHueco(int pos){
 }
 
 bool Tablero::hayEmpate() {
-  if(colocadas == MAX_PIEZAS)
+  if(colocadas == MAX_PIEZAS && quienGana() == 0)
     return true;
   else
     return false;
