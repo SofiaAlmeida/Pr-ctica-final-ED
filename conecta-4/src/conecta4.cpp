@@ -86,33 +86,32 @@ pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGener
     
 }
 
-bool Conecta4::turnoAutomatico(Tablero &tablero) {
+int Conecta4::metrica(Tablero &tablero) {
   //..Llamar a recorrer_arbol y quedarse con el tablero correspondiente
   
-  // Cuando sea el turno del jugador automático llamamos a esta función para que elija dónde se ha de insertar la ficha, llamamos a colocar ficha dentro de cada métrica
-  bool insertada = false;
+  int puntuacion;
   
   switch (metrica_elegida) {
 
   case 1:
-    insertada = metrica1(tablero);
+    puntuacion = metrica1(tablero);
     break;
   case 2:
-    insertada = metrica2(tablero);
+    puntuacion = metrica2(tablero);
     break;
   case 3:
-    insertada = metrica_penultima(tablero);
+    puntuacion = metrica_penultima(tablero);
     break;
   case 4:
-    insertada = metrica_ultima(tablero);
+    puntuacion = metrica_ultima(tablero);
     break;
   default:
     cout << "Error en selección de métrica para inserción." << endl;
     exit(-1);
-    //..return insertada
+    //..return puntuacion
   }
 
-  return insertada;
+  return puntuacion;
 } 
 
 void Conecta4::actualizar(const Tablero& tablero) {
@@ -128,6 +127,7 @@ bool Conecta4::metrica2(Tablero &tablero) {
   //TODO
 }
 
+/*
 bool Conecta4::metrica_penultima(Tablero &tablero) {
   ArbolGeneral<Tablero> posibilidades(tablero);
   //..No sé como hacer esto usando el dato que ya tenemos...
@@ -150,6 +150,7 @@ bool Conecta4::metrica_penultima(Tablero &tablero) {
       return metrica_ultima(tablero);
     }
   }
+*/
   //.. evitar perder...NO FUNCIONA - REVIEW
   /* bool evitar_derrota = false;
 
@@ -164,10 +165,12 @@ bool Conecta4::metrica_penultima(Tablero &tablero) {
     return tablero.colocarFicha(pos);
   }
   else
-  return metrica_ultima(tablero);*/
-}
+  return metrica_ultima(tablero);
+  }
+*/
 
- 
+
+/* 
 bool Conecta4::metrica_ultima(Tablero &tablero) {
   int columna;
   bool colocada = false;
@@ -181,8 +184,21 @@ bool Conecta4::metrica_ultima(Tablero &tablero) {
   tablero.cambiarTurno();
   return colocada;
 }
+*/
 
-int Conecta4::metrica(const Tablero& tablero) {
+int Conecta4::metrica_penultima(Tablero &tablero) {
+  if (tablero.quienGana() == 0)
+    return 0;
+
+  if (tablero.quienGana() == 2)
+    return 10;
+
+  else
+    return -10;
+}
+
+
+int Conecta4::metrica_ultima(const Tablero& tablero) { 
   cout << tablero;
   int puntuacion = rand() % 100;
   cout << "Puntuación: " << puntuacion << endl;

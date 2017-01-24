@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char *argv[]){
 
 	//Tablero vacío 6x7
-    Tablero tablero(3, 3);
+    Tablero tablero(2, 4);
 
     /*   //Manualmente se insertan algunos movimientos: 
     tablero.colocarFicha(3);	//Jugador 1 inserta ficha en columna 3
@@ -84,6 +84,15 @@ int main(int argc, char *argv[]){
     partida.asignar_subarbol(rama_podada, rama_podada.raiz());*/
     Conecta4 conecta4(tablero, 1);
     tablero.colocarFicha(2);
+    // Insertado extra para comprobar si se viola el segmento
+    tablero.colocarFicha(2);
+    tablero.colocarFicha(2);
+    tablero.colocarFicha(1);
+    tablero.colocarFicha(1);
+    tablero.colocarFicha(1);
+    tablero.colocarFicha(0);
+    
+    //
     conecta4.actualizar(tablero);
 
     cout << tablero;

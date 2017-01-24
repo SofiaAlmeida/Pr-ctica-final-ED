@@ -40,11 +40,10 @@ class Conecta4 {
   
   /**
    * @brief Cuando sea el turno del jugador automático operará según la métrica insertada. 
-   * En caso de ser posible insertar una ficha en la posición indicada por la métrica, modifica el tablero
-   * @param tablero en el que insertará una ficha
-   * @return true si se pudo insertar
+   * @param tablero a evaluar
+   * @return puntuación del respectivo tablero
    */
-  bool turnoAutomatico(Tablero &tablero);
+  int metrica(Tablero &tablero);
 
   ArbolGeneral<Tablero> get_arbol_posibilidades() const {return arbol_posibilidades;}
 
@@ -81,19 +80,20 @@ class Conecta4 {
   bool metrica2(Tablero &tablero);
 
   /**
-   * @brief Métrica que sólo verifica el siguiente nivel y corta la jugada rival en caso de posible derrota. Si no se decanta insertará aleatoriamente
+   * @brief Métrica que sólo verifica si se produce una victoria para asignar una máxima puntuación. En caso de empate introducirá la primera jugada con la máxima puntuación obtenida
    * @param tablero Tablero
+   * @return pair tablero y puntuación máxima
    **/
-  bool metrica_penultima(Tablero &tablero);
+  int metrica_penultima(Tablero &tablero);
   
   /**
-   * @brief inserta en una posición aleatoria y cambia el turno
+   * @brief Otorga puntuaciones aleatorias para insertar en la máxima
    * @param tablero en el que insertará
-   * @return true si ha podido insertar, false en caso contrario
+   * @return pair tablero y puntuación máxima
    */
-  bool metrica_ultima(Tablero &tablero);
+  int metrica_ultima(const Tablero &tablero);
 
-  int metrica(const Tablero& tablero);
+  
 };
 
 #endif
