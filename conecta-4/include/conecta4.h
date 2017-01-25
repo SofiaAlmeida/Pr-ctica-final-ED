@@ -64,6 +64,12 @@ class Conecta4 {
    * @return un pair formado por el mejor tablero y su puntuación 
    */
   pair<ArbolGeneral<Tablero>::Nodo, int> recorrer_arbol(const ArbolGeneral<Tablero>::Nodo& raiz);
+
+  /**
+   * @brief devuelve el mejor tablero
+   * @return tablero con la puntuación más alta
+   */
+  Tablero mejor_tablero();
   
   /**
    * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales

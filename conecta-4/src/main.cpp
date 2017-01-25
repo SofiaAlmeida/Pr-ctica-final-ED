@@ -105,7 +105,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
   Conecta4 j_auto(tablero, metrica); 
   Mando mando(tablero);
   bool insertado;
-  ArbolGeneral<Tablero> arbol_posibilidades;
+  //..ArbolGeneral<Tablero> arbol_posibilidades;
 
   //Mientras no haya ganador y no se pulse la tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
@@ -128,7 +128,8 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
       cout << "Jugador automático" << endl;
       imprimeTablero(tablero,mando);
       sleep(1);
-      tablero = arbol_posibilidades.etiqueta(j_auto.recorrer_arbol(arbol_posibilidades.raiz()).first); // Se asigna a tablero el tablero que se encuentra en el árbol de posibilidades y que se obtiene mediante el pair de recorrer_arbol
+      tablero = j_auto.mejor_tablero();
+	//..arbol_posibilidades.etiqueta(j_auto.recorrer_arbol(arbol_posibilidades.raiz()).first); // Se asigna a tablero el tablero que se encuentra en el árbol de posibilidades y que se obtiene mediante el pair de recorrer_arbol
       
     }
     quienGana = tablero.quienGana(); 

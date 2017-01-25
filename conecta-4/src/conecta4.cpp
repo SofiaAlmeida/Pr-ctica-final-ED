@@ -86,6 +86,12 @@ pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGener
     
 }
 
+Tablero Conecta4::mejor_tablero() {
+  pair<ArbolGeneral<Tablero>::Nodo, int> p;
+  p = recorrer_arbol(arbol_posibilidades.raiz());
+  return arbol_posibilidades.etiqueta(p.first);
+}
+
 int Conecta4::metrica(Tablero &tablero) {
   //..Llamar a recorrer_arbol y quedarse con el tablero correspondiente
   
