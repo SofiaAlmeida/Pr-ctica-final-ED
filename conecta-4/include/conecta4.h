@@ -67,17 +67,17 @@ class Conecta4 {
   
   /**
    * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales
-   * @param tablero Tablero dónde insertará
-   * @return true si ha insertado correctamente, false en caso contrario
+   * @param tablero Tablero a evaluar
+   * @return Puntuación correspondiente
    **/
-  bool metrica1(Tablero &tablero);
+  int metrica1(const Tablero &tablero);
 
   /**
    * @brief Segunda métrica, intenta alinear el mayor número de fichas posibles
-   * @param tablero Tablero donde se insertará
-   * @return true si ha insertado correctamente, false en caso contrario
+   * @param tablero Tablero a evaluar
+   * @return Puntuación correspondiente
    **/
-  bool metrica2(Tablero &tablero);
+  int metrica2(const Tablero &tablero);
 
   /**
    * @brief Métrica que sólo verifica si se produce una victoria para asignar una máxima puntuación. En caso de empate introducirá la primera jugada con la máxima puntuación obtenida

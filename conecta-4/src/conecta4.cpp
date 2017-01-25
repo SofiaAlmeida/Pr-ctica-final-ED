@@ -119,12 +119,17 @@ void Conecta4::actualizar(const Tablero& tablero) {
   generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0);
 }
 
-bool Conecta4::metrica1(Tablero &tablero) {
+int Conecta4::metrica1(const Tablero &tablero) {
   //TODO
+  int puntuacion = 10;
+  
+  return puntuacion;
 }
 
-bool Conecta4::metrica2(Tablero &tablero) {
-  //TODO
+int Conecta4::metrica2(const Tablero &tablero) {
+  int puntuacion = 10;
+
+  return puntuacion;
 }
 
 /*
@@ -186,7 +191,7 @@ bool Conecta4::metrica_ultima(Tablero &tablero) {
 }
 */
 
-int Conecta4::metrica_penultima(Tablero &tablero) {
+int Conecta4::metrica_penultima(Tablero &tablero) { //..No es constante 
   if (tablero.quienGana() == 0)
     return 0;
 
