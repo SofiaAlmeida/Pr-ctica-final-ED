@@ -17,8 +17,13 @@ Tablero::Tablero() : filas(0), columnas(0), MAX_PIEZAS(0), colocadas(0) {
 }
 
 Tablero::Tablero(const int filas, const int columnas) :
-    filas(filas), columnas(columnas), MAX_PIEZAS(filas*columnas), colocadas(0) {
+  filas(filas), columnas(columnas), MAX_PIEZAS(filas*columnas), colocadas(0) {
     turno = 1;
+    reserve();
+}
+
+Tablero::Tablero(const int filas, const int columnas, const int turn ) :
+  filas(filas), columnas(columnas), MAX_PIEZAS(filas*columnas), colocadas(0), turno(turn) {
     reserve();
 }
 

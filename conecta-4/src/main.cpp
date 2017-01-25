@@ -61,20 +61,25 @@ void imprimeTablero(Tablero & t, Mando &m) {
  * @brief Implementa el desarrollo de una partida de Conecta 4 sobre un tablero 5x7, pidiendo por teclado los movimientos de ambos jugadores según turno.
  * @return : Identificador (int) del jugador que gana la partida (1 o 2).
  */
-int jugar_partida_humanos() {
+int jugar_partida_humanos(int filas = 4, int columnas = 4) {
 
-  Tablero tablero(5, 7);      //Tablero 5x7
+  Tablero tablero(filas, columnas);      //Tablero filxcols
   Mando mando(tablero);       //Mando para controlar E/S de tablero
   char c = 1;
   int quienGana = tablero.quienGana();
   //mientras no haya ganador y no se pulse tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
     system("clear");
+    
     mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c 
     imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
     quienGana = tablero.quienGana();    // hay ganador?
-    if(quienGana == 0)
-      c = getch();       // Capturamos la tecla pulsada.    
+
+    if(tablero.hayEmpate()) {
+      return -2;
+    }
+    
+    if(quienGana==0) c = getch();       // Capturamos la tecla pulsada.   
   }
 
   return tablero.quienGana();
@@ -91,22 +96,22 @@ int jugar_partida_humanos() {
  * 1: jugador humano
  * 2: jugador automático
  */
-int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 1) {
+int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 1) {
   //(filas, columnas, metrica, turno)
   
   Tablero tablero(filas, columnas, turno);      //Tablero filas x columnas 
   int quienGana = tablero.quienGana();
   char c = 1;
-  Conecta4 j_auto(tablero, metrica); //..¿ESTÁ IMPLEMENTADO ESTE CONSTRUCTOR?
+  Conecta4 j_auto(tablero, metrica); 
   Mando mando(tablero);
   bool insertado;
+  ArbolGeneral<Tablero> arbol_posibilidades;
 
   //Mientras no haya ganador y no se pulse la tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
     system("clear");
 
     if(tablero.hayEmpate()) {
-      cout << "Se ha producido un empate" << endl;
       return -2;
     }
     
@@ -123,9 +128,13 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
       cout << "Jugador automático" << endl;
       imprimeTablero(tablero,mando);
       sleep(1);
-      j_auto.turnoAutomatico(); //..¿ESTÁ IMPLEMENTADO?;
+      tablero = arbol_posibilidades.etiqueta(j_auto.recorrer_arbol(arbol_posibilidades.raiz()).first); // Se asigna a tablero el tablero que se encuentra en el árbol de posibilidades y que se obtiene mediante el pair de recorrer_arbol
+      
     }
     quienGana = tablero.quienGana();
+
+    if(quienGana == 0)   //..Probando si esto arregla el bug de la ficha que aparece en el turno incorrecto en el mando
+      c = getch();       // Capturamos la tecla pulsada.   
 
   }
   system("clear");
@@ -135,31 +144,47 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 
 
 int main(int argc, char *argv[]) {
 
+  int choice;
+  cout << "Bienvenido a Conecta-n \nDesea jugar 1vs.1 (1) o 1vs.IA (2)\n";
+
+  do {
+    cin >> choice;
+  }while (choice < 1 || choice > 2);
+    
   int ganador;
 
-  switch (argc) {
-  case 1: 
-    ganador = jugar_partida();
-    break;
-  case 2:
-    ganador = jugar_partida(stoi(argv[1]));
-    break;
-  case 3:
-    ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]));
-    break;
-  case 4:
-    ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]));
-    break;
-  case 5:
-    ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]), stoi(argv[4]));
-    break;
-  default:
-    cout << "Número de argumentos incorrecto, por favor introduzca un número adecuado" << endl;
-    cout << "prompt %> conecta4 <filas_tablero> <cols_tablero> <metrica> <turno>" << endl;
-    return 1;
-  }
+  
+  if(choice == 1)
+    ganador = jugar_partida_humanos();
 
-  cout << "Ha ganado el jugador " << ganador << endl;
+  else {
+    switch (argc) {
+    case 1: 
+      ganador = jugar_partida();
+      break;
+    case 2:
+      ganador = jugar_partida(stoi(argv[1]));
+      break;
+    case 3:
+      ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]));
+      break;
+    case 4:
+      ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]));
+      break;
+    case 5:
+      ganador = jugar_partida(stoi(argv[1]), stoi(argv[2]), stoi(argv[3]), stoi(argv[4]));
+      break;
+    default:
+      cout << "Número de argumentos incorrecto, por favor introduzca un número adecuado" << endl;
+      cout << "prompt %> conecta4 <filas_tablero> <cols_tablero> <metrica> <turno>" << endl;
+      return 1;
+    }
+  }
+  
+  if(ganador == -2)
+    cout << "Se produjo un empate" << endl;
+  else
+    cout << "Ha ganado el jugador " << ganador << endl;
 }  
   
   

@@ -82,7 +82,7 @@ int main(int argc, char *argv[]){
 
     // Probamos ArbolGeneral::asignar_subarbol. Asignamos a partida la rama_podada:
     partida.asignar_subarbol(rama_podada, rama_podada.raiz());*/
-    Conecta4 conecta4(tablero, 3);
+    Conecta4 conecta4(tablero, 4);
     tablero.cambiarTurno();
     tablero.colocarFicha(2);
     // Insertado extra para comprobar si se viola el segmento
