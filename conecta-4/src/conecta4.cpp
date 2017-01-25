@@ -51,7 +51,7 @@ void Conecta4::generar_arbol_posibilidades(const ArbolGeneral<Tablero>::Nodo& ra
 
 pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGeneral<Tablero>::Nodo& raiz) {
   if(arbol_posibilidades.altura(raiz) == 0) {
-    cout << "Altura == 0" << endl;
+    //cout << "Altura == 0" << endl;
     pair<ArbolGeneral<Tablero>::Nodo, int> p(raiz, metrica(arbol_posibilidades.etiqueta(raiz)));
     
     return p;
@@ -66,8 +66,8 @@ pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGener
     }
     pair<ArbolGeneral<Tablero>::Nodo, int> intermedio(maximo);
     
-    cout << "Altura = " << arbol_posibilidades.altura(raiz) << ", hermanoderecha(intermedio.first)" << endl;
-    cout << arbol_posibilidades.etiqueta(arbol_posibilidades.hermanoderecha(intermedio.first));
+    //cout << "Altura = " << arbol_posibilidades.altura(raiz) << ", hermanoderecha(intermedio.first)" << endl;
+    //cout << arbol_posibilidades.etiqueta(arbol_posibilidades.hermanoderecha(intermedio.first));
     ArbolGeneral<Tablero>::Nodo  nodo_aux;
       
     while((arbol_posibilidades.hermanoderecha(intermedio.first)) != NULL) {
@@ -79,7 +79,7 @@ pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGener
       if(maximo.second < intermedio.second)
 	maximo = intermedio;
     }
-    cout << "Hermano derecha de: " << arbol_posibilidades.etiqueta(nodo_aux) << "NULL" << endl;
+    //cout << "Hermano derecha de: " << arbol_posibilidades.etiqueta(nodo_aux) << "NULL" << endl;
     
     return maximo;
   }
@@ -204,8 +204,8 @@ int Conecta4::metrica_penultima(Tablero &tablero) { //..No es constante
 
 
 int Conecta4::metrica_ultima(const Tablero& tablero) { 
-  cout << tablero;
+  //cout << tablero;
   int puntuacion = rand() % 100;
-  cout << "Puntuación: " << puntuacion << endl;
+  //cout << "Puntuación: " << puntuacion << endl;
   return puntuacion;
 }
