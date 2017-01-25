@@ -131,10 +131,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
       tablero = arbol_posibilidades.etiqueta(j_auto.recorrer_arbol(arbol_posibilidades.raiz()).first); // Se asigna a tablero el tablero que se encuentra en el árbol de posibilidades y que se obtiene mediante el pair de recorrer_arbol
       
     }
-    quienGana = tablero.quienGana();
-
-    if(quienGana == 0)   //..Probando si esto arregla el bug de la ficha que aparece en el turno incorrecto en el mando
-      c = getch();       // Capturamos la tecla pulsada.   
+    quienGana = tablero.quienGana(); 
 
   }
   system("clear");
