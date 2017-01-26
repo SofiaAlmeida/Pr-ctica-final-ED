@@ -72,7 +72,7 @@ class Conecta4 {
   Tablero mejor_tablero(Tablero tablero);
   
   /**
-   * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales
+   * @brief Mejor métrica, intenta alinear cuatro, en caso contrario, cortar las victorias rivales, si esto tampoco es posible, se inserta aleatoriamente
    * @param tablero Tablero a evaluar
    * @return Tablero correspondiente
    **/
@@ -83,7 +83,7 @@ class Conecta4 {
    * @param tablero Tablero a evaluar
    * @return Puntuación correspondiente
    **/
-  int metrica2(Tablero &tablero);
+  Tablero metrica2(Tablero &tablero);
 
   /**
    * @brief Métrica que sólo verifica si se produce una victoria. En caso de no victoria introducirá una puntuación aleatoria

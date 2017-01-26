@@ -94,6 +94,8 @@ Tablero Conecta4::mejor_tablero(Tablero tablero) {
     return metrica1(tablero);
   }
   else {
+    if(metrica_elegida == 2)
+      return metrica2(tablero);
     pair<ArbolGeneral<Tablero>::Nodo, int> p;
     p = recorrer_arbol(arbol_posibilidades.raiz());
     return arbol_posibilidades.etiqueta(p.first);
@@ -136,11 +138,46 @@ void Conecta4::actualizar(const Tablero& tablero) {
 Tablero Conecta4::metrica1(Tablero &tablero) {
   int cols = tablero.GetColumnas();
 
+  //Comprobamos si podemos ganar
   for(int i = 0; i < cols; ++i) {
     Tablero aux(tablero);
-    //  aux.cambiarTurno();
     if(aux.colocarFicha(i)) {
       if(aux.quienGana() == 2) {
+	tablero.colocarFicha(i);
+	return tablero;
+      }
+    }
+  }
+
+  //Cortamos jugadas ganadoras
+  for(int i = 0; i < cols; ++i) {
+    Tablero aux(tablero);
+    aux.cambiarTurno();
+    if(aux.colocarFicha(i)) {
+      if(aux.quienGana() == 1) {
+	tablero.colocarFicha(i);
+	return tablero;
+      }
+    }
+  }
+
+  //Insertamos aleatoriamente
+  bool insertada = false;
+  do {
+    int pos = rand() % cols;
+    if(tablero.colocarFicha(pos))
+      return tablero;
+  } while(!insertada);
+}
+
+Tablero Conecta4::metrica2(Tablero &tablero) {
+  int cols = tablero.GetColumnas();
+
+  for(int i = 0; i < cols; ++i) {
+    Tablero aux(tablero);
+    aux.cambiarTurno();
+    if(aux.colocarFicha(i)) {
+      if(aux.quienGana() == 1) {
 	tablero.colocarFicha(i);
 	return tablero;
       }
@@ -150,15 +187,11 @@ Tablero Conecta4::metrica1(Tablero &tablero) {
   // Si el otro jugador en ningún caso hace un 4 en raya
   bool insertada = false;
   do {
-    int pos = rand() % (cols - 1);
+    int pos = rand() % cols;
     if(tablero.colocarFicha(pos))
       return tablero;
   } while(!insertada);
 }
-
-/*int Conecta4::metrica2(Tablero &tablero) {
-
-}*/
 
 int Conecta4::metrica_penultima(Tablero &tablero) { //..No es constante 
   if (tablero.quienGana() == 0)

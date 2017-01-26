@@ -96,7 +96,7 @@ int jugar_partida_humanos(int filas = 4, int columnas = 4) {
  * 1: jugador humano
  * 2: jugador automático
  */
-int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 1) {
+int jugar_partida(int filas = 4, int columnas = 4, int metrica = 1, int turno = 1) {
   //(filas, columnas, metrica, turno)
   
   Tablero tablero(filas, columnas, turno);      //Tablero filas x columnas 
@@ -122,10 +122,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
 	j_auto.actualizar(tablero); //..¿ESTÁ IMPLEMENTADO? (tablero referencia constante)
 	
 	tablero.cambiarTurno();//..
-      }
-
-     
-       
+      }       
     }
     else {
       cout << "Jugador automático" << endl;
@@ -134,6 +131,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
       tablero = j_auto.mejor_tablero(tablero);
       tablero.incrementaColocadas();
       tablero.cambiarTurno();//..
+      mando.actualizarAuto(tablero);
 	//..arbol_posibilidades.etiqueta(j_auto.recorrer_arbol(arbol_posibilidades.raiz()).first); // Se asigna a tablero el tablero que se encuentra en el árbol de posibilidades y que se obtiene mediante el pair de recorrer_arbol
       
     }
