@@ -1,4 +1,4 @@
-#include "tablero.h"
+#include "tablero.hpp"
 #include <iostream>
 
 using namespace std;

@@ -1,7 +1,7 @@
-#ifndef __MANDO_H__
-#define __MANDO_H__
+#ifndef __MANDO_HPP__
+#define __MANDO_HPP__
 
-#include "tablero.h"
+#include "tablero.hpp"
 
 
 /******************************************************************************/

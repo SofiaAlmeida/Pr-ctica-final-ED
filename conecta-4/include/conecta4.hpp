@@ -1,8 +1,15 @@
-#ifndef __CONECTA4_H__
-#define __CONECTA4_H__
+/**
+  * @file conecta4.hpp
+  * @brief Fichero cabecera del TDA Conecta4
+  * @author Sofía Almeida Bruno (@SofiaAlmeida)
+  * @author Jesús Sánchez de Lechina Tejada (@jojelupipa)
+  */
 
-#include "tablero.h"
-#include "ArbolGeneral.h"
+#ifndef __CONECTA4_HPP__
+#define __CONECTA4_HPP__
+
+#include "tablero.hpp"
+#include "ArbolGeneral.hpp"
 #include <cstdlib> //rand()
 #include <utility> //pair
 

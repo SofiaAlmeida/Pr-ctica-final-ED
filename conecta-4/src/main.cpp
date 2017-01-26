@@ -8,10 +8,10 @@
 //#include <termios.h>    // Mac OSX users
 #include <string>
 
-#include "ArbolGeneral.h"
-#include "tablero.h"
-#include "mando.h"
-#include "conecta4.h"
+#include "ArbolGeneral.hpp"
+#include "tablero.hpp"
+#include "mando.hpp"
+#include "conecta4.hpp"
 
 using namespace std;
 

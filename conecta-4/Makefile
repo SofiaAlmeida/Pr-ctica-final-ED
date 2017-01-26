@@ -32,16 +32,16 @@ $(LIB)/libmando.a: $(OBJ)/mando.o
 $(LIB)/libconecta4.a: $(OBJ)/conecta4.o
 	$(AR) $(LIB)/libconecta4.a $(OBJ)/conecta4.o
 
-$(OBJ)/tablero.o: $(SRC)/tablero.cpp $(INC)/tablero.h
+$(OBJ)/tablero.o: $(SRC)/tablero.cpp $(INC)/tablero.hpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/tablero.o $(SRC)/tablero.cpp -I$(INC)
 
-$(OBJ)/arboltablero_test.o: $(SRC)/arboltablero_test.cpp $(INC)/tablero.h
+$(OBJ)/arboltablero_test.o: $(SRC)/arboltablero_test.cpp $(INC)/tablero.hpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/arboltablero_test.o $(SRC)/arboltablero_test.cpp -I$(INC)
 
-$(OBJ)/mando.o: $(SRC)/mando.cpp $(INC)/mando.h $(INC)/tablero.h
+$(OBJ)/mando.o: $(SRC)/mando.cpp $(INC)/mando.hpp $(INC)/tablero.hpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/mando.o $(SRC)/mando.cpp -I$(INC)
 
-$(OBJ)/conecta4.o: $(SRC)/conecta4.cpp $(INC)/conecta4.h	
+$(OBJ)/conecta4.o: $(SRC)/conecta4.cpp $(INC)/conecta4.hpp	
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/conecta4.o $(SRC)/conecta4.cpp -I$(INC)
 # ************ Limpieza ************
 clean :

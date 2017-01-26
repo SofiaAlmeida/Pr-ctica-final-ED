@@ -1,5 +1,5 @@
-#ifndef __ArbolGeneral_h__
-#define __ArbolGeneral_h__
+#ifndef __ArbolGeneral_hpp__
+#define __ArbolGeneral_hpp__
 
 #include <cassert>
 #include <algorithm>

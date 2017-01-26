@@ -1,8 +1,8 @@
 
 #include <iostream>
-#include "ArbolGeneral.h"
-#include "tablero.h"
-#include "conecta4.h"
+#include "ArbolGeneral.hpp"
+#include "tablero.hpp"
+#include "conecta4.hpp"
 #include <string>
 
 using namespace std;
@@ -114,7 +114,7 @@ int main(int argc, char *argv[]){
     //cout << "raiz intermedio: " << conecta4.get_arbol_posibilidades().etiqueta(conecta4.get_arbol_posibilidades().raiz());
     
     cout << "Mejor tablero: ";
-    cout << conecta4.mejor_tablero();
+    cout << conecta4.mejor_tablero(tablero);
     
     /*    cout << "\nRecorrido postorden después de asignar a la raiz la rama_podada: \n"<<endl; 
 	  partida.recorrer_postorden();*/

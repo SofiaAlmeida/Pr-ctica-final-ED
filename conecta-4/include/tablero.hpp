@@ -1,5 +1,5 @@
-#ifndef __TABLERO_H__
-#define __TABLERO_H__
+#ifndef __TABLERO_HPP__
+#define __TABLERO_HPP__
 
 #include <vector>
 #include <iostream>

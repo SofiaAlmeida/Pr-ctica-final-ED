@@ -1,4 +1,4 @@
-#include "conecta4.h"
+#include "conecta4.hpp"
 
 //Constructor
 Conecta4::Conecta4(const Tablero& tab, int met) {
