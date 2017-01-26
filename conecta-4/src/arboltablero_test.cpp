@@ -107,14 +107,15 @@ int main(int argc, char *argv[]){
 
     cout << "Fin del recorrido" << endl;
 
-    // pair<ArbolGeneral<Tablero>::Nodo, int> intermedio = conecta4.recorrer_arbol(conecta4.get_arbol_posibilidades().raiz());
+    pair<ArbolGeneral<Tablero>::Nodo, int> intermedio = conecta4.recorrer_arbol(conecta4.get_arbol_posibilidades().raiz());
 
     //cout << "Puntuación: " << intermedio.second << endl;
     //cout << "Tablero a elegir: " << conecta4.get_arbol_posibilidades().etiqueta(intermedio.first) << endl;
-
+    //cout << "raiz intermedio: " << conecta4.get_arbol_posibilidades().etiqueta(conecta4.get_arbol_posibilidades().raiz());
+    
     cout << "Mejor tablero: ";
     cout << conecta4.mejor_tablero();
-
+    
     /*    cout << "\nRecorrido postorden después de asignar a la raiz la rama_podada: \n"<<endl; 
 	  partida.recorrer_postorden();*/
 

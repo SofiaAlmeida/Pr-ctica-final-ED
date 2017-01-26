@@ -120,8 +120,12 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
       imprimeTablero(tablero, mando); //Muestra tablero y mando en pantalla
       c = getch(); //Capturamos la tecla pulsada
       insertado = mando.actualizarJuego(c, tablero);
-      if (insertado) { //--No queremos actualizar la partida si no se insertó ficha
+      if (insertado) { //No queremos actualizar la partida si no se insertó ficha
+
+	tablero.cambiarTurno();//..
 	j_auto.actualizar(tablero); //..¿ESTÁ IMPLEMENTADO? (tablero referencia constante)
+	
+	tablero.cambiarTurno();//..
       }
     }
     else {
@@ -129,6 +133,8 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
       imprimeTablero(tablero,mando);
       sleep(1);
       tablero = j_auto.mejor_tablero();
+      
+tablero.cambiarTurno();//..
 	//..arbol_posibilidades.etiqueta(j_auto.recorrer_arbol(arbol_posibilidades.raiz()).first); // Se asigna a tablero el tablero que se encuentra en el árbol de posibilidades y que se obtiene mediante el pair de recorrer_arbol
       
     }
