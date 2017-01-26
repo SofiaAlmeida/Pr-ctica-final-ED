@@ -80,7 +80,7 @@ class Conecta4 {
   /**
    * @brief Segunda métrica, corta la victoria rival. Si no fuera posible, llama a la métrica 3
    * @param tablero Tablero a evaluar
-   * @return Puntuación correspondiente
+   * @return Tablero correspondiente
    **/
   Tablero metrica2(Tablero &tablero);
 
