@@ -131,7 +131,7 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
       cout << "Jugador automático" << endl;
       imprimeTablero(tablero,mando);
       sleep(1);
-      tablero = j_auto.mejor_tablero();
+      tablero = j_auto.mejor_tablero(tablero);
       tablero.incrementaColocadas();
       tablero.cambiarTurno();//..
 	//..arbol_posibilidades.etiqueta(j_auto.recorrer_arbol(arbol_posibilidades.raiz()).first); // Se asigna a tablero el tablero que se encuentra en el árbol de posibilidades y que se obtiene mediante el pair de recorrer_arbol

@@ -69,14 +69,14 @@ class Conecta4 {
    * @brief devuelve el mejor tablero
    * @return tablero con la puntuación más alta
    */
-  Tablero mejor_tablero();
+  Tablero mejor_tablero(Tablero tablero);
   
   /**
    * @brief Mejor métrica, en caso de empezar colocará en el centro y procurará tomar las decisiones más favorables a la par que cortar las victorias rivales
    * @param tablero Tablero a evaluar
-   * @return Puntuación correspondiente
+   * @return Tablero correspondiente
    **/
-  int metrica1(Tablero &tablero);
+  Tablero metrica1(Tablero &tablero);
 
   /**
    * @brief Segunda métrica, corta la victoria rival. Si no fuera posible, llama a la métrica penúltima

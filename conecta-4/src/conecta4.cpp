@@ -89,10 +89,15 @@ pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGener
     
 }
 
-Tablero Conecta4::mejor_tablero() {
-  pair<ArbolGeneral<Tablero>::Nodo, int> p;
-  p = recorrer_arbol(arbol_posibilidades.raiz());
-  return arbol_posibilidades.etiqueta(p.first);
+Tablero Conecta4::mejor_tablero(Tablero tablero) {
+  if(metrica_elegida == 1) {
+    return metrica1(tablero);
+  }
+  else {
+    pair<ArbolGeneral<Tablero>::Nodo, int> p;
+    p = recorrer_arbol(arbol_posibilidades.raiz());
+    return arbol_posibilidades.etiqueta(p.first);
+  }
 }
 
 int Conecta4::metrica(Tablero &tablero) {
@@ -101,13 +106,13 @@ int Conecta4::metrica(Tablero &tablero) {
   int puntuacion;
   
   switch (metrica_elegida) {
-
+    /* //..
   case 1:
     puntuacion = metrica1(tablero);
     break;
   case 2:
     puntuacion = metrica2(tablero);
-    break;
+    break;*/
   case 3:
     puntuacion = metrica_penultima(tablero);
     break;
@@ -128,24 +133,32 @@ void Conecta4::actualizar(const Tablero& tablero) {
   generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0);
 }
 
-int Conecta4::metrica1(Tablero &tablero) {
-  //TODO
-  int puntuacion = 10;
-  
-  return puntuacion;
-}
+Tablero Conecta4::metrica1(Tablero &tablero) {
+  int cols = tablero.GetColumnas();
 
-int Conecta4::metrica2(Tablero &tablero) {
-  if (tablero.quienGana() == 0)
-    return metrica_penultima(tablero);
-
-  if (tablero.quienGana() == 1)
-    return -2500;
-
-  else {
-    return 100;
+  for(int i = 0; i < cols; ++i) {
+    Tablero aux(tablero);
+    //  aux.cambiarTurno();
+    if(aux.colocarFicha(i)) {
+      if(aux.quienGana() == 2) {
+	tablero.colocarFicha(i);
+	return tablero;
+      }
+    }
   }
+
+  // Si el otro jugador en ningún caso hace un 4 en raya
+  bool insertada = false;
+  do {
+    int pos = rand() % (cols - 1);
+    if(tablero.colocarFicha(pos))
+      return tablero;
+  } while(!insertada);
 }
+
+/*int Conecta4::metrica2(Tablero &tablero) {
+
+}*/
 
 int Conecta4::metrica_penultima(Tablero &tablero) { //..No es constante 
   if (tablero.quienGana() == 0)
