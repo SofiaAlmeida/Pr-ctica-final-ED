@@ -44,6 +44,13 @@ public:
      *      juego. 
      */
     bool actualizarJuego(char c, Tablero & t);
+
+    /**
+     * @brief Actualiza el mando tras el turno del jugador automático
+     * @param t : Tablero. Del cual se obtiene el turno
+     **/
+    bool actualizarAuto(Tablero & t);
+
     
     /**
      * @brief Representación gráfica de la base.
@@ -67,6 +74,8 @@ public:
         return mando;
     }
 
+
+    
 };
 
 

@@ -50,3 +50,10 @@ bool Mando::actualizarJuego(char c, Tablero & t){
         
     return colocada;
 }
+
+bool Mando::actualizarAuto(Tablero & t) {
+    mando.at(posicion+1) = '^';
+    if(t.GetTurno() == 1) jugador.at(posicion+1) = 'x';
+    else jugador.at(posicion+1) = 'o';
+        
+}
