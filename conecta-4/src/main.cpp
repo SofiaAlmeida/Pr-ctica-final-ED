@@ -110,10 +110,6 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
   //Mientras no haya ganador y no se pulse la tecla de terminación
   while(c != Mando::KB_ESCAPE && quienGana == 0) {
     system("clear");
-
-    if(tablero.hayEmpate()) {
-      return -2;
-    }
     
     if(tablero.GetTurno() == t_humano) {
       cout << "Jugador humano" << endl;
@@ -127,19 +123,29 @@ int jugar_partida(int filas = 4, int columnas = 4, int metrica = 4, int turno = 
 	
 	tablero.cambiarTurno();//..
       }
+
+     
+       
     }
     else {
       cout << "Jugador automático" << endl;
       imprimeTablero(tablero,mando);
       sleep(1);
       tablero = j_auto.mejor_tablero();
-      
-tablero.cambiarTurno();//..
+      tablero.incrementaColocadas();
+      tablero.cambiarTurno();//..
 	//..arbol_posibilidades.etiqueta(j_auto.recorrer_arbol(arbol_posibilidades.raiz()).first); // Se asigna a tablero el tablero que se encuentra en el árbol de posibilidades y que se obtiene mediante el pair de recorrer_arbol
       
     }
+    
+    system("clear");
     quienGana = tablero.quienGana(); 
-
+    if(tablero.hayEmpate()) {
+      system("clear");
+      imprimeTablero(tablero, mando);
+      return -2;
+     }
+    
   }
   system("clear");
   imprimeTablero(tablero, mando);

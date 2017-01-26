@@ -111,7 +111,11 @@ public:
      **/
     bool hayEmpate();
 
-      
+    /**
+     * @brief Aumenta el número de fichas colocadas
+     **/
+    void incrementaColocadas() {colocadas++;}
+    
     /**
      * @brief Coloca una ficha en la columna especificada del jugador correspondiente.
      *          Si le toca al jugador 1, inserta la ficha en esa posición. 

@@ -1,4 +1,5 @@
 #include "conecta4.h"
+#include <cmath>
 
 Conecta4::Conecta4(const Tablero& tab, int met) {
   metrica_elegida = met;
@@ -58,8 +59,9 @@ pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGener
   }
   else {
     //..Resto de casos
-    //..Para cada hijo llamo a recorrer_arbol
+    //..Para cada hijo llamo a recorrer_arbol 
     pair<ArbolGeneral<Tablero>::Nodo, int> maximo = recorrer_arbol(arbol_posibilidades.hijomasizquierda(raiz));
+    maximo.second += metrica(arbol_posibilidades.etiqueta(raiz)) * arbol_posibilidades.altura(raiz);
     //cout << "maximo " << arbol_posibilidades.etiqueta(maximo.first) << maximo.second << endl;
     if(arbol_posibilidades.altura(raiz) != 1) {
       maximo.first = arbol_posibilidades.hijomasizquierda(raiz);
@@ -73,10 +75,11 @@ pair<ArbolGeneral<Tablero>::Nodo, int> Conecta4::recorrer_arbol(const ArbolGener
     while((arbol_posibilidades.hermanoderecha(intermedio.first)) != NULL) {
       nodo_aux = arbol_posibilidades.hermanoderecha(intermedio.first);
       
-      intermedio = recorrer_arbol(nodo_aux);
+      intermedio = recorrer_arbol(nodo_aux); 
       intermedio.first =  nodo_aux;
+      intermedio.second += metrica(arbol_posibilidades.etiqueta(nodo_aux)) * arbol_posibilidades.altura(nodo_aux);
       
-      if(maximo.second < intermedio.second)
+      if(abs(maximo.second) < abs(intermedio.second))
 	maximo = intermedio;
     }
     //cout << "Hermano derecha de: " << arbol_posibilidades.etiqueta(nodo_aux) << "NULL" << endl;
@@ -125,87 +128,34 @@ void Conecta4::actualizar(const Tablero& tablero) {
   generar_arbol_posibilidades(arbol_posibilidades.raiz(), 0);
 }
 
-int Conecta4::metrica1(const Tablero &tablero) {
+int Conecta4::metrica1(Tablero &tablero) {
   //TODO
   int puntuacion = 10;
   
   return puntuacion;
 }
 
-int Conecta4::metrica2(const Tablero &tablero) {
-  int puntuacion = 10;
+int Conecta4::metrica2(Tablero &tablero) {
+  if (tablero.quienGana() == 0)
+    return metrica_penultima(tablero);
 
-  return puntuacion;
+  if (tablero.quienGana() == 1)
+    return -2500;
+
+  else {
+    return 100;
+  }
 }
-
-/*
-bool Conecta4::metrica_penultima(Tablero &tablero) {
-  ArbolGeneral<Tablero> posibilidades(tablero);
-  //..No sé como hacer esto usando el dato que ya tenemos...
-  //..pendiente de revisión
-  int pos = 0;
-  int columnas = tablero.GetColumnas();
-  bool gana = false;
-  //..NO FUNCIONA
-  for(pos = 0; pos < columnas && !gana; ++pos) {
-    Tablero aux(tablero);
-    aux.colocarFicha(pos);
-    cout << "En la pos " << pos; //..
-    if(aux.quienGana() == 2) {
-      gana = true;
-      cout << "gana" << endl;
-      return tablero.colocarFicha(pos);
-    }
-    else {
-      cout << "no gana" << endl;
-      return metrica_ultima(tablero);
-    }
-  }
-*/
-  //.. evitar perder...NO FUNCIONA - REVIEW
-  /* bool evitar_derrota = false;
-
-  for(pos = 0; pos < columnas && !evitar_derrota; ++pos) {
-     Tablero aux(tablero);
-     aux.cambiarTurno();
-     aux.colocarFicha(pos);
-     if(aux.quienGana() == 1) //..poner una variable
-       evitar_derrota = true;
-  }
-  if(evitar_derrota) {
-    return tablero.colocarFicha(pos);
-  }
-  else
-  return metrica_ultima(tablero);
-  }
-*/
-
-
-/* 
-bool Conecta4::metrica_ultima(Tablero &tablero) {
-  int columna;
-  bool colocada = false;
-
-  //..¿if(tablero.Lleno())? return colocada //— en ese caso directamente acabaría la partida, porque si no intentará insertar de nuevo
-  do {
-    columna  = rand() % tablero.GetColumnas();
-    colocada = tablero.colocarFicha(columna);
-  } while (!colocada);
-
-  tablero.cambiarTurno();
-  return colocada;
-}
-*/
 
 int Conecta4::metrica_penultima(Tablero &tablero) { //..No es constante 
   if (tablero.quienGana() == 0)
-    return 0;
+    return metrica_ultima(tablero);
 
   if (tablero.quienGana() == 2)
-    return 10;
+    return 1000;
 
   else
-    return -10;
+    return -1500;
 }
 
 

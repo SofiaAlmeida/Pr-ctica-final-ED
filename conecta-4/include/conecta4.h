@@ -76,24 +76,24 @@ class Conecta4 {
    * @param tablero Tablero a evaluar
    * @return Puntuación correspondiente
    **/
-  int metrica1(const Tablero &tablero);
+  int metrica1(Tablero &tablero);
 
   /**
-   * @brief Segunda métrica, intenta alinear el mayor número de fichas posibles
+   * @brief Segunda métrica, corta la victoria rival. Si no fuera posible, llama a la métrica penúltima
    * @param tablero Tablero a evaluar
    * @return Puntuación correspondiente
    **/
-  int metrica2(const Tablero &tablero);
+  int metrica2(Tablero &tablero);
 
   /**
-   * @brief Métrica que sólo verifica si se produce una victoria para asignar una máxima puntuación. En caso de empate introducirá la primera jugada con la máxima puntuación obtenida
+   * @brief Métrica que sólo verifica si se produce una victoria. En caso de no victoria introducirá una puntuación aleatoria
    * @param tablero Tablero
    * @return pair tablero y puntuación máxima
    **/
   int metrica_penultima(Tablero &tablero);
   
   /**
-   * @brief Otorga puntuaciones aleatorias para insertar en la máxima
+   * @brief Otorga puntuaciones aleatorias entre 0 y 100
    * @param tablero en el que insertará
    * @return pair tablero y puntuación máxima
    */

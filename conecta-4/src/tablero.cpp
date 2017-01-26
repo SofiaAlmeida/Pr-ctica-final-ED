@@ -57,11 +57,13 @@ int Tablero::hayHueco(int pos){
         return -1;
 }
 
+
 bool Tablero::hayEmpate() {
   if(colocadas == MAX_PIEZAS && quienGana() == 0)
     return true;
   else
     return false;
+  
 }
 
 bool Tablero::colocarFicha(int pos) {
@@ -84,7 +86,7 @@ int Tablero::cambiarTurno(){
 }
 
 void Tablero::SetTablero(vector<vector<int> > tablero) {
-    int filas1, filas2, columnas1, columnas2;
+  int filas1, filas2, columnas1, columnas2;
     filas1 = GetFilas();
     filas2 = tablero.size();
     columnas1 = GetColumnas();
@@ -111,6 +113,7 @@ Tablero& Tablero::operator=(const Tablero& derecha) {
         return *this; 
     // Asignamos el tablero de la derecha en la igualdad.
     SetTablero(derecha.GetTablero());
+    turno = derecha.GetTurno();
     return *this;
 }
 
